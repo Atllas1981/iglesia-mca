@@ -1,15 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --font-inter: "Inter", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
-  --color-mca-blue: #0b1f3a;
-  --color-mca-gold: #d4af37;
-}
-
+/* Tus variables personalizadas para la v3/Astro */
 :root {
   --font-montserrat: 'Montserrat', sans-serif;
   --font-inter: 'Inter', sans-serif;
+  --color-mca-blue: #0b1f3a;
+  --color-mca-gold: #d4af37;
 }
 
 body {
