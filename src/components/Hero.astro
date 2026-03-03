@@ -1,21 +1,24 @@
 ---
-// src/components/Hero.astro
+// Importamos el componente de optimización de imágenes de Astro
+import { Image } from 'astro:assets';
+// Importamos el logo desde la carpeta de activos
+import logoMCA from '../assets/LogoMCA.webp';
 ---
 
 <section
     class="relative bg-mca-blue text-white overflow-hidden py-32 lg:py-48 flex items-center justify-center text-center"
 >
-    <!-- Subtle background pattern or overlay can go here -->
     <div
-        class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--color-mca-gold)_0%,_transparent_70%)]"
+        class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_#d4af37_0%,_transparent_70%)]"
     >
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-6">
-        <img
-            src="/LogoMCA.webp"
-            alt="Logo MCA Floridablanca"
-            class="h-24 mx-auto mb-8 drop-shadow-lg"
+        <Image 
+            src={logoMCA} 
+            alt="Logo MCA Floridablanca" 
+            class="h-24 w-auto mx-auto mb-8 drop-shadow-lg"
+            loading="eager"
         />
 
         <h1
