@@ -1,0 +1,51 @@
+---
+// src/components/Hero.astro
+---
+
+<section
+    class="relative bg-mca-blue text-white overflow-hidden py-32 lg:py-48 flex items-center justify-center text-center"
+>
+    <!-- Subtle background pattern or overlay can go here -->
+    <div
+        class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--color-mca-gold)_0%,_transparent_70%)]"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+        <img
+            src="/LogoMCA.webp"
+            alt="Logo MCA Floridablanca"
+            class="h-24 mx-auto mb-8 drop-shadow-lg"
+        />
+
+        <h1
+            class="font-title text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight drop-shadow-md"
+        >
+            Vuela alto en la <br class="hidden md:block" /> presencia de Dios
+        </h1>
+
+        <p
+            class="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto font-light"
+        >
+            Un lugar donde encontrarás amor, propósito y crecimiento espiritual.
+            Únete a nuestra familia en Floridablanca.
+        </p>
+
+        <div
+            class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+            <a
+                href="#location"
+                class="px-8 py-4 bg-mca-gold hover:bg-yellow-500 text-slate-900 font-bold rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/20"
+            >
+                Visítanos Hoy
+            </a>
+            <a
+                href="#donations"
+                class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-full transition-all duration-300"
+            >
+                Apoya la Visión
+            </a>
+        </div>
+    </div>
+</section>

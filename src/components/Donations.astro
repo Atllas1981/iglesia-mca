@@ -1,0 +1,241 @@
+---
+// src/components/Donations.astro
+import qrImage from "../assets/QR-MCA.png";
+---
+
+<section id="donations" class="py-24 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="font-title text-4xl font-extrabold text-slate-900 mb-4">
+            Siembra en nuestro ministerio
+        </h2>
+        <p
+            class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg hover:text-slate-800 transition-colors"
+        >
+            "Cada uno debe dar según lo que haya decidido en su corazón, no de
+            mala gana ni por obligación, porque Dios ama al que da con alegría."
+            - 2 Corintios 9:7
+        </p>
+
+        <!-- Tabs Container -->
+        <div
+            class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4"
+        >
+            <div
+                class="flex flex-col sm:flex-row p-1.5 gap-2 bg-slate-50 rounded-full border border-slate-100"
+                id="tabs-container"
+            >
+                <button
+                    id="btn-colombia"
+                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md transform hover:-translate-y-0.5"
+                >
+                    Nacional (Colombia)
+                </button>
+                <button
+                    id="btn-internacional"
+                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-transparent text-slate-500 hover:bg-slate-200/50 hover:text-slate-800"
+                >
+                    Internacional
+                </button>
+            </div>
+
+            <div class="p-8 pb-10 mt-4">
+                <!-- Colombia Content -->
+                <div
+                    id="content-colombia"
+                    class="block animate-fade-in text-center flex flex-col items-center transition-opacity duration-300"
+                >
+                    <div
+                        class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
+                    >
+                        <svg
+                            class="w-10 h-10 text-mca-blue"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            ><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                            ></path></svg
+                        >
+                    </div>
+                    <h3
+                        class="text-2xl font-bold font-title text-slate-800 mb-2"
+                    >
+                        Transferencia Bancaria
+                    </h3>
+                    <p class="text-slate-500 mb-6 font-medium">
+                        Cuenta de Ahorros Bancolombia
+                    </p>
+
+                    <div
+                        class="flex items-center justify-center gap-3 bg-slate-50 rounded-2xl p-4 w-full max-w-sm border border-slate-200 group hover:border-mca-blue/30 transition-colors shadow-sm"
+                    >
+                        <span
+                            class="text-2xl tracking-widest font-mono font-bold text-slate-700"
+                            id="account-number">1234567890</span
+                        >
+                        <button
+                            id="copy-btn"
+                            class="p-2.5 bg-white border border-slate-200 rounded-xl text-slate-500 hover:text-white hover:bg-mca-blue hover:border-mca-blue hover:shadow-md transition-all h-11 w-11 flex items-center justify-center relative cursor-pointer group-hover:bg-slate-100"
+                        >
+                            <!-- Copy Icon -->
+                            <svg
+                                id="icon-copy"
+                                class="w-5 h-5 absolute transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                ></path></svg
+                            >
+                            <!-- Check Icon -->
+                            <svg
+                                id="icon-check"
+                                class="w-5 h-5 absolute opacity-0 scale-50 transition-all text-emerald-500"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path></svg
+                            >
+                        </button>
+                    </div>
+                    <p
+                        id="copy-toast"
+                        class="text-sm font-semibold text-emerald-600 mt-3 opacity-0 transition-all transform translate-y-2 h-5"
+                    >
+                        ¡Número copiado con éxito!
+                    </p>
+
+                    <!-- QR Code Display -->
+                    <div class="mt-6 flex flex-col items-center">
+                        <p
+                            class="text-sm text-slate-500 mb-3 font-medium uppercase tracking-wider"
+                        >
+                            O escanea el código QR
+                        </p>
+                        <div
+                            class="bg-white p-3 rounded-2xl shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
+                        >
+                            <img
+                                src={qrImage.src}
+                                alt="QR Código Bancolombia"
+                                class="w-36 h-36 object-contain rounded-xl"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Internacional Content -->
+                <div
+                    id="content-internacional"
+                    class="hidden text-center flex flex-col items-center transition-opacity duration-300"
+                >
+                    <div
+                        class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
+                    >
+                        <svg
+                            class="w-10 h-10 text-blue-600"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            ><path
+                                d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.484 0 6.014 0h7.452c1.712 0 3.278.252 4.394 1.077 1.258.927 1.83 2.503 1.517 4.093-.243 1.229-.854 2.37-1.745 3.24a5.95 5.95 0 0 1-3.692 1.57h-1.815c-.477 0-.885.341-.974.809l-1.04 5.395-.913 4.706a.65.65 0 0 1-.636.526h-1.486z"
+                            ></path><path
+                                d="M12.28 6.43h-2.11a.65.65 0 0 0-.638.527l-1.789 9.231h2.247c.477 0 .885-.341.974-.809l.732-3.793a.65.65 0 0 1 .637-.526h1.087c2.31 0 4.102-1.256 4.545-3.53a3.52 3.52 0 0 0-1.066-3.21 3.54 3.54 0 0 0-2.619-1.09h-.001z"
+                                fill="#003087"></path><path
+                                d="M14.004 8.78c-.287 1.488-1.579 2.274-3.13 2.274H9.782a.65.65 0 0 0-.638.528l-1.129 5.82h2.246c.477 0 .885-.34.974-.809l.732-3.792a.65.65 0 0 1 .638-.526h1.087c2.31 0 4.102-1.257 4.545-3.53.072-.37.102-.733.102-1.085-1.054 1.486-2.923 1.838-4.335 1.12z"
+                                fill="#0079C1"></path></svg
+                        >
+                    </div>
+                    <h3
+                        class="text-2xl font-bold font-title text-slate-800 mb-2"
+                    >
+                        PayPal
+                    </h3>
+                    <p class="text-slate-500 mb-8 font-medium">
+                        Ofrendas y donaciones de cualquier parte del mundo.
+                    </p>
+
+                    <a
+                        href="https://www.paypal.com/paypalme/omarsaiz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2 bg-[#0070ba] hover:bg-[#003087] text-white py-4 px-10 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                    >
+                        Donar con PayPal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Tab Logic
+    const btnCol = document.getElementById("btn-colombia");
+    const btnInt = document.getElementById("btn-internacional");
+    const contentCol = document.getElementById("content-colombia");
+    const contentInt = document.getElementById("content-internacional");
+
+    const activeClass =
+        "flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md transform hover:-translate-y-0.5";
+    const inactiveClass =
+        "flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-transparent text-slate-500 hover:bg-slate-200/50 hover:text-slate-800";
+
+    btnCol?.addEventListener("click", () => {
+        if (btnCol) btnCol.className = activeClass;
+        if (btnInt) btnInt.className = inactiveClass;
+        contentCol?.classList.remove("hidden");
+        contentCol?.classList.add("block");
+        contentInt?.classList.remove("block");
+        contentInt?.classList.add("hidden");
+    });
+
+    btnInt?.addEventListener("click", () => {
+        if (btnInt) btnInt.className = activeClass;
+        if (btnCol) btnCol.className = inactiveClass;
+        contentInt?.classList.remove("hidden");
+        contentInt?.classList.add("block");
+        contentCol?.classList.remove("block");
+        contentCol?.classList.add("hidden");
+    });
+
+    // Copy Logic
+    const copyBtn = document.getElementById("copy-btn");
+    const accNum = document.getElementById("account-number");
+    const iconCopy = document.getElementById("icon-copy");
+    const iconCheck = document.getElementById("icon-check");
+    const copyToast = document.getElementById("copy-toast");
+
+    copyBtn?.addEventListener("click", async () => {
+        if (!accNum) return;
+        try {
+            await navigator.clipboard.writeText(accNum.innerText);
+
+            // Animate icons
+            iconCopy?.classList.add("opacity-0", "scale-50");
+            iconCheck?.classList.remove("opacity-0", "scale-50");
+
+            // Show toast
+            copyToast?.classList.remove("opacity-0", "translate-y-2");
+
+            setTimeout(() => {
+                iconCopy?.classList.remove("opacity-0", "scale-50");
+                iconCheck?.classList.add("opacity-0", "scale-50");
+                copyToast?.classList.add("opacity-0", "translate-y-2");
+            }, 3000);
+        } catch (err) {
+            console.error("Failed to copy text: ", err);
+        }
+    });
+</script>
