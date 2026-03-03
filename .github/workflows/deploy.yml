@@ -15,7 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install, build, and upload
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build and upload
         uses: withastro/action@v3
         with:
           path: .
