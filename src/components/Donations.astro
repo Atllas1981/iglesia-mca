@@ -16,51 +16,47 @@ import qrImage from "../assets/QR-MCA.png";
             - 2 Corintios 9:7
         </p>
 
-        <!-- Tabs Container -->
         <div
             class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4"
         >
             <div
-                class="flex flex-col sm:flex-row p-1.5 gap-2 bg-slate-50 rounded-full border border-slate-100"
+                class="flex flex-col sm:flex-row p-1.5 gap-2 bg-slate-100 rounded-full border border-slate-200"
                 id="tabs-container"
             >
                 <button
                     id="btn-colombia"
-                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md transform hover:-translate-y-0.5"
+                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md border-2 border-mca-blue transform hover:-translate-y-0.5"
                 >
                     Nacional (Colombia)
                 </button>
                 <button
                     id="btn-internacional"
-                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-transparent text-slate-500 hover:bg-slate-200/50 hover:text-slate-800"
+                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-white text-slate-500 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-800"
                 >
                     Internacional
                 </button>
             </div>
 
             <div class="p-8 pb-10 mt-4">
-                <!-- Colombia Content -->
                 <div
                     id="content-colombia"
-                    class="block animate-fade-in text-center flex flex-col items-center transition-opacity duration-300"
+                    class="flex flex-col items-center animate-fade-in transition-all duration-300"
                 >
-                    <div
-                        class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
-                    >
-                        <svg
-                            class="w-10 h-10 text-mca-blue"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            ><path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                            ></path></svg
+                    <div class="mb-6 flex flex-col items-center">
+                        <p class="text-sm text-slate-500 mb-4 font-bold uppercase tracking-wider">
+                            Escanea para Nequi o Bancolombia
+                        </p>
+                        <div
+                            class="bg-white p-4 rounded-2xl shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
                         >
+                            <img
+                                src={qrImage.src}
+                                alt="QR Código Bancolombia y Nequi"
+                                class="w-80 h-80 object-contain rounded-xl"
+                            />
+                        </div>
                     </div>
+
                     <h3
                         class="text-2xl font-bold font-title text-slate-800 mb-2"
                     >
@@ -75,13 +71,12 @@ import qrImage from "../assets/QR-MCA.png";
                     >
                         <span
                             class="text-2xl tracking-widest font-mono font-bold text-slate-700"
-                            id="account-number">1234567890</span
+                            id="account-number">79595061933</span
                         >
                         <button
                             id="copy-btn"
                             class="p-2.5 bg-white border border-slate-200 rounded-xl text-slate-500 hover:text-white hover:bg-mca-blue hover:border-mca-blue hover:shadow-md transition-all h-11 w-11 flex items-center justify-center relative cursor-pointer group-hover:bg-slate-100"
                         >
-                            <!-- Copy Icon -->
                             <svg
                                 id="icon-copy"
                                 class="w-5 h-5 absolute transition-transform"
@@ -95,7 +90,6 @@ import qrImage from "../assets/QR-MCA.png";
                                     d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
                                 ></path></svg
                             >
-                            <!-- Check Icon -->
                             <svg
                                 id="icon-check"
                                 class="w-5 h-5 absolute opacity-0 scale-50 transition-all text-emerald-500"
@@ -116,30 +110,11 @@ import qrImage from "../assets/QR-MCA.png";
                     >
                         ¡Número copiado con éxito!
                     </p>
-
-                    <!-- QR Code Display -->
-                    <div class="mt-6 flex flex-col items-center">
-                        <p
-                            class="text-sm text-slate-500 mb-3 font-medium uppercase tracking-wider"
-                        >
-                            O escanea el código QR
-                        </p>
-                        <div
-                            class="bg-white p-3 rounded-2xl shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
-                        >
-                            <img
-                                src={qrImage.src}
-                                alt="QR Código Bancolombia"
-                                class="w-36 h-36 object-contain rounded-xl"
-                            />
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Internacional Content -->
                 <div
                     id="content-internacional"
-                    class="hidden text-center flex flex-col items-center transition-opacity duration-300"
+                    class="hidden flex flex-col items-center animate-fade-in transition-all duration-300"
                 >
                     <div
                         class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
@@ -181,34 +156,39 @@ import qrImage from "../assets/QR-MCA.png";
 </section>
 
 <script>
-    // Tab Logic
     const btnCol = document.getElementById("btn-colombia");
     const btnInt = document.getElementById("btn-internacional");
     const contentCol = document.getElementById("content-colombia");
     const contentInt = document.getElementById("content-internacional");
 
-    const activeClass =
-        "flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md transform hover:-translate-y-0.5";
-    const inactiveClass =
-        "flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-transparent text-slate-500 hover:bg-slate-200/50 hover:text-slate-800";
+    // Clases mejoradas con bordes para visibilidad
+    const activeBtnClasses = ["bg-mca-blue", "text-white", "shadow-md", "border-mca-blue"];
+    const inactiveBtnClasses = ["bg-white", "text-slate-500", "border-slate-200"];
 
-    btnCol?.addEventListener("click", () => {
-        if (btnCol) btnCol.className = activeClass;
-        if (btnInt) btnInt.className = inactiveClass;
-        contentCol?.classList.remove("hidden");
-        contentCol?.classList.add("block");
-        contentInt?.classList.remove("block");
-        contentInt?.classList.add("hidden");
-    });
+    function updateTabs(isInternational) {
+        if (isInternational) {
+            // Internacional Activo
+            btnInt?.classList.add(...activeBtnClasses);
+            btnInt?.classList.remove(...inactiveBtnClasses);
+            btnCol?.classList.remove(...activeBtnClasses);
+            btnCol?.classList.add(...inactiveBtnClasses);
+            
+            contentInt?.classList.remove("hidden");
+            contentCol?.classList.add("hidden");
+        } else {
+            // Colombia Activo
+            btnCol?.classList.add(...activeBtnClasses);
+            btnCol?.classList.remove(...inactiveBtnClasses);
+            btnInt?.classList.remove(...activeBtnClasses);
+            btnInt?.classList.add(...inactiveBtnClasses);
+            
+            contentCol?.classList.remove("hidden");
+            contentInt?.classList.add("hidden");
+        }
+    }
 
-    btnInt?.addEventListener("click", () => {
-        if (btnInt) btnInt.className = activeClass;
-        if (btnCol) btnCol.className = inactiveClass;
-        contentInt?.classList.remove("hidden");
-        contentInt?.classList.add("block");
-        contentCol?.classList.remove("block");
-        contentCol?.classList.add("hidden");
-    });
+    btnCol?.addEventListener("click", () => updateTabs(false));
+    btnInt?.addEventListener("click", () => updateTabs(true));
 
     // Copy Logic
     const copyBtn = document.getElementById("copy-btn");
@@ -221,12 +201,8 @@ import qrImage from "../assets/QR-MCA.png";
         if (!accNum) return;
         try {
             await navigator.clipboard.writeText(accNum.innerText);
-
-            // Animate icons
             iconCopy?.classList.add("opacity-0", "scale-50");
             iconCheck?.classList.remove("opacity-0", "scale-50");
-
-            // Show toast
             copyToast?.classList.remove("opacity-0", "translate-y-2");
 
             setTimeout(() => {
@@ -235,7 +211,7 @@ import qrImage from "../assets/QR-MCA.png";
                 copyToast?.classList.add("opacity-0", "translate-y-2");
             }, 3000);
         } catch (err) {
-            console.error("Failed to copy text: ", err);
+            console.error("Error al copiar: ", err);
         }
     });
 </script>
