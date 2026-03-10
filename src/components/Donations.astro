@@ -43,7 +43,9 @@ import qrImage from "../assets/QR-MCA.png";
                     class="flex flex-col items-center animate-fade-in transition-all duration-300"
                 >
                     <div class="mb-6 flex flex-col items-center">
-                        <p class="text-sm text-slate-500 mb-4 font-bold uppercase tracking-wider">
+                        <p
+                            class="text-sm text-slate-500 mb-4 font-bold uppercase tracking-wider"
+                        >
                             Escanea para Nequi o Bancolombia
                         </p>
                         <div
@@ -114,7 +116,7 @@ import qrImage from "../assets/QR-MCA.png";
 
                 <div
                     id="content-internacional"
-                    class="hidden flex flex-col items-center animate-fade-in transition-all duration-300"
+                    class="hidden flex-col items-center animate-fade-in transition-all duration-300"
                 >
                     <div
                         class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
@@ -162,8 +164,22 @@ import qrImage from "../assets/QR-MCA.png";
     const contentInt = document.getElementById("content-internacional");
 
     // Clases mejoradas con bordes para visibilidad
-    const activeBtnClasses = ["bg-mca-blue", "text-white", "shadow-md", "border-mca-blue"];
-    const inactiveBtnClasses = ["bg-white", "text-slate-500", "border-slate-200"];
+    const activeBtnClasses = [
+        "bg-mca-blue",
+        "text-white",
+        "shadow-md",
+        "border-mca-blue",
+        "transform",
+        "hover:-translate-y-0.5",
+    ];
+    const inactiveBtnClasses = [
+        "bg-white",
+        "text-slate-500",
+        "border-slate-200",
+        "hover:border-slate-300",
+        "hover:bg-slate-50",
+        "hover:text-slate-800",
+    ];
 
     function updateTabs(isInternational) {
         if (isInternational) {
@@ -172,18 +188,22 @@ import qrImage from "../assets/QR-MCA.png";
             btnInt?.classList.remove(...inactiveBtnClasses);
             btnCol?.classList.remove(...activeBtnClasses);
             btnCol?.classList.add(...inactiveBtnClasses);
-            
+
             contentInt?.classList.remove("hidden");
+            contentInt?.classList.add("flex");
             contentCol?.classList.add("hidden");
+            contentCol?.classList.remove("flex");
         } else {
             // Colombia Activo
             btnCol?.classList.add(...activeBtnClasses);
             btnCol?.classList.remove(...inactiveBtnClasses);
             btnInt?.classList.remove(...activeBtnClasses);
             btnInt?.classList.add(...inactiveBtnClasses);
-            
+
             contentCol?.classList.remove("hidden");
+            contentCol?.classList.add("flex");
             contentInt?.classList.add("hidden");
+            contentInt?.classList.remove("flex");
         }
     }
 

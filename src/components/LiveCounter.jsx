@@ -152,16 +152,25 @@ export default function LiveCounter() {
                     </p>
                     <h2 className="text-3xl font-black text-slate-800 mb-8">{nextServiceStr}</h2>
 
-                    <div className="flex gap-4 mb-10">
-                        {[{ l: 'HORAS', v: timeLeft.hours }, { l: 'MIN', v: timeLeft.minutes }, { l: 'SEG', v: timeLeft.seconds }].map((t) => (
-                            <div key={t.l} className="flex flex-col items-center">
-                                <div className="w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-200 flex items-center justify-center text-3xl font-black text-slate-800 mb-2">
-                                    {t.v.toString().padStart(2, '0')}
-                                </div>
-                                <span className="text-[10px] font-bold text-slate-400">{t.l}</span>
+                    {isLive ? (
+                        <div className="flex flex-col items-center justify-center p-8 bg-red-50 rounded-2xl border border-red-100 mb-10 w-full animate-pulse">
+                            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                                <Youtube className="w-8 h-8 text-red-600" />
                             </div>
-                        ))}
-                    </div>
+                            <h3 className="text-2xl font-black text-red-600 tracking-tight text-center">¡ESTAMOS EN VIVO!</h3>
+                        </div>
+                    ) : (
+                        <div className="flex gap-4 mb-10">
+                            {[{ l: 'HORAS', v: timeLeft.hours }, { l: 'MIN', v: timeLeft.minutes }, { l: 'SEG', v: timeLeft.seconds }].map((t) => (
+                                <div key={t.l} className="flex flex-col items-center">
+                                    <div className="w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-200 flex items-center justify-center text-3xl font-black text-slate-800 mb-2">
+                                        {t.v.toString().padStart(2, '0')}
+                                    </div>
+                                    <span className="text-[10px] font-bold text-slate-400">{t.l}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     <a href="https://www.youtube.com/@PastorOmarSaiz" 
                        target="_blank" 
