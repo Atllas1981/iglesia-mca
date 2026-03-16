@@ -1,237 +1,204 @@
 ---
 // src/components/Donations.astro
 import qrImage from "../assets/QR-MCA.png";
+import logoNequi from "../assets/icons/logo-nequi.png";
+import logoBancolombia from "../assets/icons/logo-bancolombia.png";
+import logoPaypal from "../assets/icons/logo-paypal.png";
+import logoBinance from "../assets/icons/logo-binance.png";
 ---
 
 <section id="donations" class="py-24 bg-slate-50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="font-title text-4xl font-extrabold text-slate-900 mb-4">
-            Siembra en nuestro ministerio
-        </h2>
-        <p
-            class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg hover:text-slate-800 transition-colors"
-        >
-            "Cada uno debe dar según lo que haya decidido en su corazón, no de
-            mala gana ni por obligación, porque Dios ama al que da con alegría."
-            - 2 Corintios 9:7
-        </p>
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-title text-4xl font-extrabold text-slate-900 mb-4">
+      Siembra en nuestro ministerio
+    </h2>
+    <p class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg italic">
+      "Cada uno debe dar según lo que haya decidido en su corazón..." - 2 Corintios 9:7
+    </p>
 
-        <div
-            class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4"
-        >
-            <div
-                class="flex flex-col sm:flex-row p-1.5 gap-2 bg-slate-100 rounded-full border border-slate-200"
-                id="tabs-container"
-            >
-                <button
-                    id="btn-colombia"
-                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-mca-blue text-white shadow-md border-2 border-mca-blue transform hover:-translate-y-0.5"
-                >
-                    Nacional (Colombia)
-                </button>
-                <button
-                    id="btn-internacional"
-                    class="flex-1 py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 bg-white text-slate-500 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-800"
-                >
-                    Internacional
-                </button>
+    <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4 sm:p-6">
+      
+      <div class="flex flex-col gap-2 mb-10">
+        <button id="btn-colombia" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]">
+          Nacional (Colombia)
+        </button>
+        <button id="btn-internacional" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100 hover:bg-slate-50">
+          Internacional
+        </button>
+      </div>
+
+      <div id="content-colombia" class="animate-fade-in block">
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Donación Nacional Instantánea</h3>
+        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Para donar desde tu celular sin capturas de pantalla, utiliza los siguientes botones.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6">
+          <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Escanear QR</p>
+            <div class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
+              <img src={qrImage.src} alt="QR Pago" class="w-44 h-44 object-contain" />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="bg-[#1a5f7a] rounded-2xl overflow-hidden shadow-md border border-blue-900/20">
+                <div class="py-2 px-4 text-white text-[11px] font-bold text-left opacity-90">Transfiere con tu <span class="underline">Llave Bre-B</span></div>
+                <div class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4">
+                    <span class="font-mono font-bold text-slate-800 text-lg" id="transfiya-key">310 123 4567</span>
+                    <button id="copy-transfiya" class="bg-[#1a5f7a] text-white p-3 rounded-lg flex items-center gap-2 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span class="text-[10px] font-black uppercase">Copiar</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="p-8 pb-10 mt-4">
-                <div
-                    id="content-colombia"
-                    class="flex flex-col items-center animate-fade-in transition-all duration-300"
-                >
-                    <div class="mb-6 flex flex-col items-center">
-                        <p
-                            class="text-sm text-slate-500 mb-4 font-bold uppercase tracking-wider"
-                        >
-                            Escanea para Nequi o Bancolombia
-                        </p>
-                        <div
-                            class="bg-white p-5 rounded-2xl shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
-                        >
-                            <img
-                                src={qrImage.src}
-                                alt="QR Código Bancolombia y Nequi"
-                                class="w-80 h-80 object-contain rounded-xl"
-                            />
-                        </div>
-                    </div>
+            <button id="btn-nequi" class="w-full bg-[#700e70] hover:bg-[#5a0b5a] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+              <div class="w-66 h-11 bg-white rounded-full flex items-center justify-center mr-4 p-1.5 shadow-sm shrink-0">
+                <img src={logoNequi.src} alt="Nequi" class="w-full h-full object-contain" />
+              </div>
+              <div class="text-left">
+                <p class="font-bold text-lg leading-none">Dona con Nequi</p>
+                <p class="text-[10px] opacity-70 uppercase font-bold mt-1">(Se abre app)</p>
+              </div>
+            </button>
 
-                    <h3
-                        class="text-2xl font-bold font-title text-slate-800 mb-2"
-                    >
-                        Transferencia Bancaria
-                    </h3>
-                    <p class="text-slate-500 mb-6 font-medium">
-                        Cuenta de Ahorros Bancolombia
-                    </p>
+            <button id="btn-bancolombia" class="w-full bg-[#fdda24] hover:bg-[#eecb10] text-slate-900 rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+              <div class="w-[66px] h-[66px] rounded-full flex items-center justify-center mr-4 p-2 shrink-0 shadow-sm">
+                <img src={logoBancolombia.src} alt="Bancolombia" class="w-full h-full object-contain" />
+              </div>
+              <div class="text-left">
+                <p class="font-bold text-lg leading-none">Dona con Bancolombia</p>
+                <p class="text-[10px] opacity-60 uppercase font-bold mt-1">(Se abre app)</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
 
-                    <div
-                        class="flex items-center justify-center gap-3 bg-slate-50 rounded-2xl p-4 w-full max-w-sm border border-slate-200 group hover:border-mca-blue/30 transition-colors shadow-sm"
-                    >
-                        <span
-                            class="text-2xl tracking-widest font-mono font-bold text-slate-700"
-                            id="account-number">79595061933</span
-                        >
-                        <button
-                            id="copy-btn"
-                            class="p-2.5 bg-white border border-slate-200 rounded-xl text-slate-500 hover:text-white hover:bg-mca-blue hover:border-mca-blue hover:shadow-md transition-all h-11 w-11 flex items-center justify-center relative cursor-pointer group-hover:bg-slate-100"
-                        >
-                            <svg
-                                id="icon-copy"
-                                class="w-8 h-5 absolute transition-transform"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                ><path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                                ></path></svg
-                            >
-                            <svg
-                                id="icon-check"
-                                class="w-5 h-5 absolute opacity-0 scale-50 transition-all text-emerald-500"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                ><path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="3"
-                                    d="M5 13l4 4L19 7"></path></svg
-                            >
-                        </button>
-                    </div>
-                    <p
-                        id="copy-toast"
-                        class="text-sm font-semibold text-emerald-600 mt-3 opacity-0 transition-all transform translate-y-2 h-5"
-                    >
-                        ¡Número copiado con éxito!
-                    </p>
-                </div>
-
-                <div
-                    id="content-internacional"
-                    class="hidden flex-col items-center animate-fade-in transition-all duration-300"
-                >
-                    <div
-                        class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 shadow-inner"
-                    >
-                        <svg
-                            class="w-10 h-10 text-blue-600"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                            ><path
-                                d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.484 0 6.014 0h7.452c1.712 0 3.278.252 4.394 1.077 1.258.927 1.83 2.503 1.517 4.093-.243 1.229-.854 2.37-1.745 3.24a5.95 5.95 0 0 1-3.692 1.57h-1.815c-.477 0-.885.341-.974.809l-1.04 5.395-.913 4.706a.65.65 0 0 1-.636.526h-1.486z"
-                            ></path><path
-                                d="M12.28 6.43h-2.11a.65.65 0 0 0-.638.527l-1.789 9.231h2.247c.477 0 .885-.341.974-.809l.732-3.793a.65.65 0 0 1 .637-.526h1.087c2.31 0 4.102-1.256 4.545-3.53a3.52 3.52 0 0 0-1.066-3.21 3.54 3.54 0 0 0-2.619-1.09h-.001z"
-                                fill="#003087"></path><path
-                                d="M14.004 8.78c-.287 1.488-1.579 2.274-3.13 2.274H9.782a.65.65 0 0 0-.638.528l-1.129 5.82h2.246c.477 0 .885-.34.974-.809l.732-3.792a.65.65 0 0 1 .638-.526h1.087c2.31 0 4.102-1.257 4.545-3.53.072-.37.102-.733.102-1.085-1.054 1.486-2.923 1.838-4.335 1.12z"
-                                fill="#0079C1"></path></svg
-                        >
-                    </div>
-                    <h3
-                        class="text-2xl font-bold font-title text-slate-800 mb-2"
-                    >
-                        PayPal
-                    </h3>
-                    <p class="text-slate-500 mb-8 font-medium">
-                        Ofrendas y donaciones de cualquier parte del mundo.
-                    </p>
-
-                    <a
-                        href="https://www.paypal.com/paypalme/omarsaiz"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center justify-center gap-2 bg-[#0070ba] hover:bg-[#003087] text-white py-4 px-10 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
-                    >
-                        Donar con PayPal
-                    </a>
-                </div>
+   <div id="content-internacional" class="hidden animate-fade-in">
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Otras Opciones de Donación</h3>
+        
+        <div class="flex justify-center -space-x-4 my-8">
+            <div class="w-20 h-20 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden z-10">
+                <img src={logoPaypal.src} alt="PayPal" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-20 h-20 bg-[#1e2329] rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden">
+                <img src={logoBinance.src} alt="Binance" class="w-full h-full object-cover" />
             </div>
         </div>
+
+        <p class="text-slate-500 font-bold mb-8 uppercase tracking-wide text-xs">Opciones Globales y Cripto</p>
+
+        <div class="flex flex-col gap-4 max-w-md mx-auto pb-6">
+            <button id="btn-paypal" class="w-full bg-[#0070ba] hover:bg-[#005ea6] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm">
+                    <img src={logoPaypal.src} alt="PayPal Icon" class="w-full h-full object-cover scale-110" />
+                </div>
+                <p class="font-bold text-lg flex-1 text-left">Donar con PayPal</p>
+            </button>
+
+            <button id="btn-binance" class="w-full bg-[#1e2329] hover:bg-[#2b3139] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+                <div class="w-12 h-12 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm">
+                    <img src={logoBinance.src} alt="Binance Icon" class="w-full h-full object-cover scale-110" />
+                </div>
+                <p class="font-bold text-lg flex-1 text-left">Dona con Binance Pay</p>
+            </button>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <div id="toast-msg" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-3 rounded-full text-sm font-bold shadow-2xl opacity-0 transition-all pointer-events-none z-50 transform translate-y-4">
+    ¡Copiado con éxito!
+  </div>
 </section>
 
 <script>
-    const btnCol = document.getElementById("btn-colombia");
-    const btnInt = document.getElementById("btn-internacional");
-    const contentCol = document.getElementById("content-colombia");
-    const contentInt = document.getElementById("content-internacional");
+  // CONFIGURACIÓN DE TUS DATOS
+  const CONFIG = {
+    account: "79595061933",
+    transfiya: "3101234567",
+    paypalUrl: "https://www.paypal.com/paypalme/omarsaiz",
+    binanceId: "123456789" // <--- CAMBIA ESTO POR TU ID DE BINANCE
+  };
 
-    // Clases mejoradas con bordes para visibilidad
-    const activeBtnClasses = [
-        "bg-mca-blue",
-        "text-white",
-        "shadow-md",
-        "border-mca-blue",
-        "transform",
-        "hover:-translate-y-0.5",
-    ];
-    const inactiveBtnClasses = [
-        "bg-white",
-        "text-slate-500",
-        "border-slate-200",
-        "hover:border-slate-300",
-        "hover:bg-slate-50",
-        "hover:text-slate-800",
-    ];
+  const APPS = {
+    nequi: { scheme: "nequi://", play: "https://play.google.com/store/apps/details?id=com.nequi.MobileApp", store: "https://apps.apple.com/co/app/nequi-colombia/id1002836341" },
+    bancolombia: { scheme: "bancolombia://", play: "https://play.google.com/store/apps/details?id=com.grupobancolombia.bbm", store: "https://apps.apple.com/co/app/personas-bancolombia/id561271111" },
+    paypal: { scheme: "paypal://", play: "https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile", store: "https://apps.apple.com/app/paypal-send-receive-money/id329125308" },
+    binance: { scheme: "bnc://", play: "https://play.google.com/store/apps/details?id=com.binance.dev", store: "https://apps.apple.com/app/binance-buy-sell-bitcoin/id1436799971" }
+  };
 
-    function updateTabs(isInternational) {
-        if (isInternational) {
-            // Internacional Activo
-            btnInt?.classList.add(...activeBtnClasses);
-            btnInt?.classList.remove(...inactiveBtnClasses);
-            btnCol?.classList.remove(...activeBtnClasses);
-            btnCol?.classList.add(...inactiveBtnClasses);
+  function showToast(msg) {
+    const t = document.getElementById("toast-msg");
+    if(!t) return;
+    t.innerText = msg; t.classList.remove("opacity-0", "translate-y-4");
+    setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 2500);
+  }
 
-            contentInt?.classList.remove("hidden");
-            contentInt?.classList.add("flex");
-            contentCol?.classList.add("hidden");
-            contentCol?.classList.remove("flex");
-        } else {
-            // Colombia Activo
-            btnCol?.classList.add(...activeBtnClasses);
-            btnCol?.classList.remove(...inactiveBtnClasses);
-            btnInt?.classList.remove(...activeBtnClasses);
-            btnInt?.classList.add(...inactiveBtnClasses);
+  function openApp(key) {
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    const app = APPS[key];
+    const start = Date.now();
+    window.location.href = app.scheme;
+    setTimeout(() => {
+      if (Date.now() - start < 2000) window.open(isIOS ? app.store : app.play, "_blank");
+    }, 1500);
+  }
 
-            contentCol?.classList.remove("hidden");
-            contentCol?.classList.add("flex");
-            contentInt?.classList.add("hidden");
-            contentInt?.classList.remove("flex");
-        }
+  // EVENTOS NACIONAL
+  document.getElementById("btn-nequi")?.addEventListener("click", () => {
+    navigator.clipboard.writeText(CONFIG.account);
+    showToast("Cuenta copiada. Abriendo Nequi...");
+    openApp('nequi');
+  });
+
+  document.getElementById("btn-bancolombia")?.addEventListener("click", () => {
+    navigator.clipboard.writeText(CONFIG.account);
+    showToast("Cuenta copiada. Abriendo Bancolombia...");
+    openApp('bancolombia');
+  });
+
+  document.getElementById("copy-transfiya")?.addEventListener("click", () => {
+    navigator.clipboard.writeText(CONFIG.transfiya);
+    showToast("Llave Bre-B copiada");
+  });
+
+  // EVENTOS INTERNACIONAL
+  document.getElementById("btn-paypal")?.addEventListener("click", () => {
+    showToast("Redirigiendo a PayPal...");
+    setTimeout(() => window.open(CONFIG.paypalUrl, "_blank"), 800);
+  });
+
+  document.getElementById("btn-binance")?.addEventListener("click", () => {
+    navigator.clipboard.writeText(CONFIG.binanceId);
+    showToast("ID de Binance copiado. Abriendo app...");
+    openApp('binance');
+  });
+
+  // LÓGICA DE PESTAÑAS (TABS)
+  const bCol = document.getElementById("btn-colombia");
+  const bInt = document.getElementById("btn-internacional");
+  const cCol = document.getElementById("content-colombia");
+  const cInt = document.getElementById("content-internacional");
+
+  function toggle(isInt) {
+    if (isInt) {
+      bInt.className = "w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]";
+      bCol.className = "w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100";
+      cCol.classList.add("hidden"); cInt.classList.remove("hidden");
+    } else {
+      bCol.className = "w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]";
+      bInt.className = "w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100";
+      cInt.classList.add("hidden"); cCol.classList.remove("hidden");
     }
+  }
 
-    btnCol?.addEventListener("click", () => updateTabs(false));
-    btnInt?.addEventListener("click", () => updateTabs(true));
-
-    // Copy Logic
-    const copyBtn = document.getElementById("copy-btn");
-    const accNum = document.getElementById("account-number");
-    const iconCopy = document.getElementById("icon-copy");
-    const iconCheck = document.getElementById("icon-check");
-    const copyToast = document.getElementById("copy-toast");
-
-    copyBtn?.addEventListener("click", async () => {
-        if (!accNum) return;
-        try {
-            await navigator.clipboard.writeText(accNum.innerText);
-            iconCopy?.classList.add("opacity-0", "scale-50");
-            iconCheck?.classList.remove("opacity-0", "scale-50");
-            copyToast?.classList.remove("opacity-0", "translate-y-2");
-
-            setTimeout(() => {
-                iconCopy?.classList.remove("opacity-0", "scale-50");
-                iconCheck?.classList.add("opacity-0", "scale-50");
-                copyToast?.classList.add("opacity-0", "translate-y-2");
-            }, 3000);
-        } catch (err) {
-            console.error("Error al copiar: ", err);
-        }
-    });
+  bCol?.addEventListener("click", () => toggle(false));
+  bInt?.addEventListener("click", () => toggle(true));
 </script>
+
+<style>
+  .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
