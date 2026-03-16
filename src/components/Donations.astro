@@ -140,10 +140,25 @@ import logoBinance from "../assets/icons/logo-binance.png";
     const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
     const app = APPS[key];
     const start = Date.now();
+    let hasFocused = true;
+
+    // Detectar si el usuario salió de la web hacia la app
+    window.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        hasFocused = false;
+      }
+    }, { once: true });
+
+    // Intento de abrir la app
     window.location.href = app.scheme;
+    
+    // Solo abrir la tienda si después de 2 segundos seguimos viendo la web
     setTimeout(() => {
-      if (Date.now() - start < 2000) window.open(isIOS ? app.store : app.play, "_blank");
-    }, 1500);
+      const now = Date.now();
+      if (hasFocused && now - start < 2500) {
+        window.open(isIOS ? app.store : app.play, "_blank");
+      }
+    }, 2000);
   }
 
   // EVENTOS NACIONAL
