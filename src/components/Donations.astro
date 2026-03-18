@@ -27,8 +27,8 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       </div>
 
       <div id="content-colombia" class="animate-fade-in block">
-        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Donación Nacional Instantánea</h3>
-        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Usa los botones para abrir la app directamente desde tu celular.</p>
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Donación Nacional</h3>
+        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Copia el número de cuenta y transfiere desde tu app bancaria.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6">
           <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
@@ -56,7 +56,7 @@ import logoBinance from "../assets/icons/logo-binance.webp";
               </div>
               <div class="text-left">
                 <p class="font-bold text-lg leading-none">Dona con Nequi</p>
-                <p class="text-[10px] opacity-70 uppercase font-bold mt-1">(Se abre app)</p>
+                <p class="text-[10px] opacity-70 uppercase font-bold mt-1">(Abre la app)</p>
               </div>
             </button>
 
@@ -66,15 +66,15 @@ import logoBinance from "../assets/icons/logo-binance.webp";
               </div>
               <div class="text-left">
                 <p class="font-bold text-lg leading-none">Dona con Bancolombia</p>
-                <p class="text-[10px] opacity-60 uppercase font-bold mt-1">(Se abre app)</p>
+                <p class="text-[10px] opacity-60 uppercase font-bold mt-1">(Copia cuenta)</p>
               </div>
             </button>
           </div>
         </div>
       </div>
-
+      
       <div id="content-internacional" class="hidden animate-fade-in">
-        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Otras Opciones de Donación</h3>
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Otras Opciones</h3>
         <div class="flex justify-center -space-x-4 my-8">
             <div class="w-20 h-20 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden z-10"><img src={logoPaypal.src} alt="PayPal" class="w-full h-full object-cover" /></div>
             <div class="w-20 h-20 bg-[#1e2329] rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden"><img src={logoBinance.src} alt="Binance" class="w-full h-full object-cover" /></div>
@@ -106,96 +106,45 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     binanceId: "123456789",
   };
 
-  const APPS = {
-    nequi: {
-      scheme: "nequi://",
-      play: "https://play.google.com/store/apps/details?id=com.nequi.MobileApp",
-      store: "https://apps.apple.com/co/app/nequi-colombia/id1002836341",
-    },
-    bancolombia: {
-      scheme: "bancolombia://",
-      // Intent optimizado para evitar el error de "Elemento no encontrado" en Play Store
-      intent: "intent://#Intent;scheme=bancolombia;package=com.grupobancolombia.bbm;end",
-      play: "https://play.google.com/store/apps/details?id=com.grupobancolombia.bbm",
-      store: "https://apps.apple.com/co/app/personas-bancolombia/id561271111",
-    },
-    binance: {
-      scheme: "bnc://",
-      play: "https://play.google.com/store/apps/details?id=com.binance.dev",
-      store: "https://apps.apple.com/app/binance-buy-sell-bitcoin/id1436799971",
-    },
-  };
-
   function showToast(msg: string) {
     const t = document.getElementById("toast-msg");
     if (!t) return;
     t.innerText = msg;
     t.classList.remove("opacity-0", "translate-y-4");
-    setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 2500);
+    setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 3000);
   }
 
-  function openApp(key: keyof typeof APPS) {
-    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-    const isAndroid = /Android/.test(navigator.userAgent);
-    const app = APPS[key];
-    const appName = key.charAt(0).toUpperCase() + key.slice(1);
-    let fallbackTimer: any;
-
-    const stopAll = () => {
-      clearTimeout(fallbackTimer);
-      window.removeEventListener("blur", stopAll);
-      document.removeEventListener("visibilitychange", stopAll);
-    };
-
-    window.addEventListener("blur", stopAll);
-    document.addEventListener("visibilitychange", stopAll);
-
-    // INTENTO DE APERTURA
-    if (key === 'bancolombia' && isAndroid) {
-        // Forzamos el Intent oficial para Bancolombia en Android
-        window.location.href = app.intent;
-    } else {
-        window.location.href = app.scheme;
-    }
-
-    // FALLBACK: Solo se activa si el usuario NO salió de la página
-    fallbackTimer = setTimeout(() => {
-      if (!document.hidden && document.hasFocus()) {
-        if (confirm(`¿No se abrió la app de ${appName}? Pulsa Aceptar para ir a la tienda oficial.`)) {
-          window.open(isIOS ? app.store : app.play, "_blank");
-        }
-        stopAll();
-      }
-    }, 2500);
-  }
-
-  // EVENTOS
+  // EVENTO NEQUI (Funciona bien)
   document.getElementById("btn-nequi")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.account);
     showToast("Cuenta copiada. Abriendo Nequi...");
-    openApp("nequi");
+    setTimeout(() => {
+        window.location.href = "nequi://";
+    }, 500);
   });
 
+  // EVENTO BANCOLOMBIA (Estrategia Segura)
   document.getElementById("btn-bancolombia")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.account);
-    showToast("Cuenta copiada. Abriendo Bancolombia...");
-    openApp("bancolombia");
+    // En lugar de fallar, avisamos al usuario
+    alert("Número de cuenta copiado: " + CONFIG.account + "\n\nPor seguridad, abre tu App Bancolombia manualmente y pega el número.");
+    showToast("¡Cuenta copiada! Abre tu app bancaria.");
   });
 
+  // RESTO DE EVENTOS
   document.getElementById("copy-transfiya")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.transfiya);
     showToast("Llave Bre-B copiada");
   });
 
   document.getElementById("btn-paypal")?.addEventListener("click", () => {
-    showToast("Redirigiendo a PayPal...");
-    setTimeout(() => window.open(CONFIG.paypalUrl, "_blank"), 800);
+    window.open(CONFIG.paypalUrl, "_blank");
   });
 
   document.getElementById("btn-binance")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.binanceId);
-    showToast("ID de Binance copiado. Abriendo app...");
-    openApp("binance");
+    showToast("ID de Binance copiado");
+    alert("ID Copiado. Abre tu App de Binance y ve a Binance Pay.");
   });
 
   // TABS
@@ -207,14 +156,12 @@ import logoBinance from "../assets/icons/logo-binance.webp";
   function toggle(isInt: boolean) {
     if (isInt) {
       bInt?.classList.add("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
-      bInt?.classList.remove("bg-white", "text-slate-400", "border-2");
       bCol?.classList.add("bg-white", "text-slate-400", "border-2");
       bCol?.classList.remove("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
       cCol?.classList.add("hidden");
       cInt?.classList.remove("hidden");
     } else {
       bCol?.classList.add("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
-      bCol?.classList.remove("bg-white", "text-slate-400", "border-2");
       bInt?.classList.add("bg-white", "text-slate-400", "border-2");
       bInt?.classList.remove("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
       cInt?.classList.add("hidden");
@@ -225,8 +172,3 @@ import logoBinance from "../assets/icons/logo-binance.webp";
   bCol?.addEventListener("click", () => toggle(false));
   bInt?.addEventListener("click", () => toggle(true));
 </script>
-
-<style>
-  .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-</style>
