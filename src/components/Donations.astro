@@ -28,7 +28,7 @@ import logoBinance from "../assets/icons/logo-binance.webp";
 
       <div id="content-colombia" class="animate-fade-in block">
         <h3 class="text-2xl font-black text-[#0d2137] mb-2">Donación Nacional Instantánea</h3>
-        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Toca los botones para abrir la app y transferir sin complicaciones.</p>
+        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Usa los botones para abrir la app directamente desde tu celular.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6">
           <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
@@ -112,11 +112,10 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       play: "https://play.google.com/store/apps/details?id=com.nequi.MobileApp",
       store: "https://apps.apple.com/co/app/nequi-colombia/id1002836341",
     },
-   bancolombia: {
-      // Intentamos con bdigital que es el protocolo más reciente de la App Personas
-      scheme: "bdigital://", 
-      // Si el anterior falla, el intent usa el ID oficial de la Play Store
-      intent: "intent://#Intent;scheme=bdigital;package=com.grupobancolombia.bbm;end",
+    bancolombia: {
+      scheme: "bancolombia://",
+      // Intent optimizado para evitar el error de "Elemento no encontrado" en Play Store
+      intent: "intent://#Intent;scheme=bancolombia;package=com.grupobancolombia.bbm;end",
       play: "https://play.google.com/store/apps/details?id=com.grupobancolombia.bbm",
       store: "https://apps.apple.com/co/app/personas-bancolombia/id561271111",
     },
@@ -151,18 +150,18 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     window.addEventListener("blur", stopAll);
     document.addEventListener("visibilitychange", stopAll);
 
-    // INTENTO DE APERTURA (Lógica Diferenciada)
+    // INTENTO DE APERTURA
     if (key === 'bancolombia' && isAndroid) {
-        // En Android, Bancolombia requiere Intent para saltarse bloqueos de Chrome
+        // Forzamos el Intent oficial para Bancolombia en Android
         window.location.href = app.intent;
     } else {
         window.location.href = app.scheme;
     }
 
-    // VERIFICACIÓN: Si después de 2.5s el usuario SIGUE aquí, mostramos el error
+    // FALLBACK: Solo se activa si el usuario NO salió de la página
     fallbackTimer = setTimeout(() => {
       if (!document.hidden && document.hasFocus()) {
-        if (confirm(`Parece que no tienes la app de ${appName} instalada. ¿Deseas ir a la tienda?`)) {
+        if (confirm(`¿No se abrió la app de ${appName}? Pulsa Aceptar para ir a la tienda oficial.`)) {
           window.open(isIOS ? app.store : app.play, "_blank");
         }
         stopAll();
