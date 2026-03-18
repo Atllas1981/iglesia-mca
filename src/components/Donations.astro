@@ -112,10 +112,11 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       play: "https://play.google.com/store/apps/details?id=com.nequi.MobileApp",
       store: "https://apps.apple.com/co/app/nequi-colombia/id1002836341",
     },
-    bancolombia: {
-      scheme: "gmfp://",
-      // El "intent" es vital para forzar la apertura en Android cuando el esquema falla
-      intent: "intent://#Intent;scheme=gmfp;package=com.grupobancolombia.bbm;end",
+   bancolombia: {
+      // Intentamos con bdigital que es el protocolo más reciente de la App Personas
+      scheme: "bdigital://", 
+      // Si el anterior falla, el intent usa el ID oficial de la Play Store
+      intent: "intent://#Intent;scheme=bdigital;package=com.grupobancolombia.bbm;end",
       play: "https://play.google.com/store/apps/details?id=com.grupobancolombia.bbm",
       store: "https://apps.apple.com/co/app/personas-bancolombia/id561271111",
     },
