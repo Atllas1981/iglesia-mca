@@ -13,137 +13,60 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       Siembra en nuestro ministerio
     </h2>
     <p class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg italic">
-      "Cada uno debe dar según lo que haya decidido en su corazón..." - 2
-      Corintios 9:7
+      "Cada uno debe dar según lo que haya decidido en su corazón..." - 2 Corintios 9:7
     </p>
 
-    <div
-      class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4 sm:p-6"
-    >
+    <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-4 sm:p-6">
       <div class="flex flex-col gap-2 mb-10">
-        <button
-          id="btn-colombia"
-          class="w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]"
-        >
+        <button id="btn-colombia" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]">
           Nacional (Colombia)
         </button>
-        <button
-          id="btn-internacional"
-          class="w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100 hover:bg-slate-50"
-        >
+        <button id="btn-internacional" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100 hover:bg-slate-50">
           Internacional
         </button>
       </div>
 
       <div id="content-colombia" class="animate-fade-in block">
-        <h3 class="text-2xl font-black text-[#0d2137] mb-2">
-          Donación Nacional Instantánea
-        </h3>
-        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">
-          Para donar desde tu celular sin capturas de pantalla, utiliza los
-          siguientes botones.
-        </p>
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Donación Nacional Instantánea</h3>
+        <p class="text-slate-500 text-sm mb-8 px-6 font-medium">Usa los botones para abrir la app directamente desde tu celular.</p>
 
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6"
-        >
-          <div
-            class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8"
-          >
-            <p
-              class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4"
-            >
-              Escanear QR
-            </p>
-            <div
-              class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100"
-            >
-              <img
-                src={qrImage.src}
-                alt="QR Pago"
-                class="w-44 h-44 object-contain"
-              />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6">
+          <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Escanear QR</p>
+            <div class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
+              <img src={qrImage.src} alt="QR Pago" class="w-44 h-44 object-contain" />
             </div>
           </div>
 
           <div class="flex flex-col gap-4">
-            <div
-              class="bg-[#1a5f7a] rounded-2xl overflow-hidden shadow-md border border-blue-900/20"
-            >
-              <div
-                class="py-2 px-4 text-white text-[11px] font-bold text-left opacity-90"
-              >
-                Transfiere con tu <span class="underline">Llave Bre-B</span>
-              </div>
-              <div
-                class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4"
-              >
-                <span
-                  class="font-mono font-bold text-slate-800 text-lg"
-                  id="transfiya-key">310 123 4567</span
-                >
-                <button
-                  id="copy-transfiya"
-                  class="bg-[#1a5f7a] text-white p-3 rounded-lg flex items-center gap-2 active:scale-95 transition-transform"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    ><path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    ></path></svg
-                  >
+            <div class="bg-[#1a5f7a] rounded-2xl overflow-hidden shadow-md border border-blue-900/20">
+              <div class="py-2 px-4 text-white text-[11px] font-bold text-left opacity-90">Transfiere con tu <span class="underline">Llave Bre-B</span></div>
+              <div class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4">
+                <span class="font-mono font-bold text-slate-800 text-lg" id="transfiya-key">310 123 4567</span>
+                <button id="copy-transfiya" class="bg-[#1a5f7a] text-white p-3 rounded-lg flex items-center gap-2 active:scale-95 transition-transform">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                   <span class="text-[10px] font-black uppercase">Copiar</span>
                 </button>
               </div>
             </div>
 
-            <button
-              id="btn-nequi"
-              class="w-full bg-[#700e70] hover:bg-[#5a0b5a] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all"
-            >
-              <div
-                class="w-66 h-11 bg-white rounded-full flex items-center justify-center mr-4 p-1.5 shadow-sm shrink-0"
-              >
-                <img
-                  src={logoNequi.src}
-                  alt="Nequi"
-                  class="w-full h-full object-contain"
-                />
+            <button id="btn-nequi" class="w-full bg-[#700e70] hover:bg-[#5a0b5a] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+              <div class="w-12 h-11 bg-white rounded-full flex items-center justify-center mr-4 p-1.5 shadow-sm shrink-0">
+                <img src={logoNequi.src} alt="Nequi" class="w-full h-full object-contain" />
               </div>
               <div class="text-left">
                 <p class="font-bold text-lg leading-none">Dona con Nequi</p>
-                <p class="text-[10px] opacity-70 uppercase font-bold mt-1">
-                  (Se abre app)
-                </p>
+                <p class="text-[10px] opacity-70 uppercase font-bold mt-1">(Se abre app)</p>
               </div>
             </button>
 
-            <button
-              id="btn-bancolombia"
-              class="w-full bg-[#fdda24] hover:bg-[#eecb10] text-slate-900 rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all"
-            >
-              <div
-                class="w-[66px] h-[66px] rounded-full flex items-center justify-center mr-4 p-2 shrink-0 shadow-sm"
-              >
-                <img
-                  src={logoBancolombia.src}
-                  alt="Bancolombia"
-                  class="w-full h-full object-contain"
-                />
+            <button id="btn-bancolombia" class="w-full bg-[#fdda24] hover:bg-[#eecb10] text-slate-900 rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4 p-2 shrink-0 shadow-sm">
+                <img src={logoBancolombia.src} alt="Bancolombia" class="w-full h-full object-contain" />
               </div>
               <div class="text-left">
-                <p class="font-bold text-lg leading-none">
-                  Dona con Bancolombia
-                </p>
-                <p class="text-[10px] opacity-60 uppercase font-bold mt-1">
-                  (Se abre app)
-                </p>
+                <p class="font-bold text-lg leading-none">Dona con Bancolombia</p>
+                <p class="text-[10px] opacity-60 uppercase font-bold mt-1">(Se abre app)</p>
               </div>
             </button>
           </div>
@@ -151,91 +74,44 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       </div>
 
       <div id="content-internacional" class="hidden animate-fade-in">
-        <h3 class="text-2xl font-black text-[#0d2137] mb-2">
-          Otras Opciones de Donación
-        </h3>
-
+        <h3 class="text-2xl font-black text-[#0d2137] mb-2">Otras Opciones de Donación</h3>
         <div class="flex justify-center -space-x-4 my-8">
-          <div
-            class="w-20 h-20 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden z-10"
-          >
-            <img
-              src={logoPaypal.src}
-              alt="PayPal"
-              class="w-full h-full object-cover"
-            />
+          <div class="w-20 h-20 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden z-10">
+            <img src={logoPaypal.src} alt="PayPal" class="w-full h-full object-cover" />
           </div>
-          <div
-            class="w-20 h-20 bg-[#1e2329] rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden"
-          >
-            <img
-              src={logoBinance.src}
-              alt="Binance"
-              class="w-full h-full object-cover"
-            />
+          <div class="w-20 h-20 bg-[#1e2329] rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden">
+            <img src={logoBinance.src} alt="Binance" class="w-full h-full object-cover" />
           </div>
         </div>
-
-        <p
-          class="text-slate-500 font-bold mb-8 uppercase tracking-wide text-xs"
-        >
-          Opciones Globales y Cripto
-        </p>
-
         <div class="flex flex-col gap-4 max-w-md mx-auto pb-6">
-          <button
-            id="btn-paypal"
-            class="w-full bg-[#0070ba] hover:bg-[#005ea6] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all"
-          >
-            <div
-              class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm"
-            >
-              <img
-                src={logoPaypal.src}
-                alt="PayPal Icon"
-                class="w-full h-full object-cover scale-110"
-              />
+          <button id="btn-paypal" class="w-full bg-[#0070ba] hover:bg-[#005ea6] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm">
+              <img src={logoPaypal.src} alt="PayPal Icon" class="w-full h-full object-cover scale-110" />
             </div>
             <p class="font-bold text-lg flex-1 text-left">Donar con PayPal</p>
           </button>
-
-          <button
-            id="btn-binance"
-            class="w-full bg-[#1e2329] hover:bg-[#2b3139] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all"
-          >
-            <div
-              class="w-12 h-12 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm"
-            >
-              <img
-                src={logoBinance.src}
-                alt="Binance Icon"
-                class="w-full h-full object-cover scale-110"
-              />
+          <button id="btn-binance" class="w-full bg-[#1e2329] hover:bg-[#2b3139] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
+            <div class="w-12 h-12 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 p-0 shrink-0 overflow-hidden shadow-sm">
+              <img src={logoBinance.src} alt="Binance Icon" class="w-full h-full object-cover scale-110" />
             </div>
-            <p class="font-bold text-lg flex-1 text-left">
-              Dona con Binance Pay
-            </p>
+            <p class="font-bold text-lg flex-1 text-left">Dona con Binance Pay</p>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div
-    id="toast-msg"
-    class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-3 rounded-full text-sm font-bold shadow-2xl opacity-0 transition-all pointer-events-none z-50 transform translate-y-4"
-  >
+  <div id="toast-msg" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-3 rounded-full text-sm font-bold shadow-2xl opacity-0 transition-all pointer-events-none z-50 transform translate-y-4">
     ¡Copiado con éxito!
   </div>
 </section>
 
 <script>
-  // CONFIGURACIÓN DE TUS DATOS
   const CONFIG = {
     account: "79595061933",
     transfiya: "3101234567",
     paypalUrl: "https://www.paypal.com/paypalme/omarsaiz",
-    binanceId: "123456789", // <--- CAMBIA ESTO POR TU ID DE BINANCE
+    binanceId: "123456789",
   };
 
   const APPS = {
@@ -245,14 +121,9 @@ import logoBinance from "../assets/icons/logo-binance.webp";
       store: "https://apps.apple.com/co/app/nequi-colombia/id1002836341",
     },
     bancolombia: {
-      scheme: "bancolombia://",
+      scheme: "gmfp://", // Esquema oficial corregido
       play: "https://play.google.com/store/apps/details?id=com.grupobancolombia.bbm",
       store: "https://apps.apple.com/co/app/personas-bancolombia/id561271111",
-    },
-    paypal: {
-      scheme: "paypal://",
-      play: "https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile",
-      store: "https://apps.apple.com/app/paypal-send-receive-money/id329125308",
     },
     binance: {
       scheme: "bnc://",
@@ -261,7 +132,7 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     },
   };
 
-  function showToast(msg) {
+  function showToast(msg: string) {
     const t = document.getElementById("toast-msg");
     if (!t) return;
     t.innerText = msg;
@@ -269,43 +140,38 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 2500);
   }
 
-  function openApp(key) {
+  function openApp(key: keyof typeof APPS) {
     const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
     const app = APPS[key];
     const appName = key.charAt(0).toUpperCase() + key.slice(1);
-    const start = Date.now();
-    let hasFocused = true;
+    let fallbackTimer: any;
 
-    // Detectar si el usuario salió de la web hacia la app
-    window.addEventListener(
-      "visibilitychange",
-      () => {
-        if (document.visibilityState === "hidden") {
-          hasFocused = false;
-        }
-      },
-      { once: true },
-    );
+    // LIMPIEZA: Si el usuario sale de la web (porque la app abrió), cancelamos el error
+    const clearTimers = () => {
+      clearTimeout(fallbackTimer);
+      window.removeEventListener("blur", clearTimers);
+      document.removeEventListener("visibilitychange", clearTimers);
+    };
 
-    // Intento de abrir la app
+    window.addEventListener("blur", clearTimers);
+    document.addEventListener("visibilitychange", clearTimers);
+
+    // INTENTO DE APERTURA
     window.location.href = app.scheme;
 
-    // Mostrar mensaje si no se pudo abrir la app
-    setTimeout(() => {
-      const now = Date.now();
-      if (hasFocused && now - start < 2500) {
-        if (
-          confirm(
-            `Parece que no tienes la app de ${appName} instalada. ¿Deseas ir a la tienda de aplicaciones para instalarla?`,
-          )
-        ) {
+    // FALLBACK: Solo se ejecuta si el usuario SIGUE en la web después de 2.5s
+    fallbackTimer = setTimeout(() => {
+      // Si la página sigue visible y tiene el foco, la app no abrió
+      if (!document.hidden && document.hasFocus()) {
+        if (confirm(`Parece que no tienes la app de ${appName} instalada. ¿Deseas ir a la tienda para descargarla?`)) {
           window.open(isIOS ? app.store : app.play, "_blank");
         }
+        clearTimers();
       }
-    }, 2000);
+    }, 2500);
   }
 
-  // EVENTOS NACIONAL
+  // EVENTOS
   document.getElementById("btn-nequi")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.account);
     showToast("Cuenta copiada. Abriendo Nequi...");
@@ -323,7 +189,6 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     showToast("Llave Bre-B copiada");
   });
 
-  // EVENTOS INTERNACIONAL
   document.getElementById("btn-paypal")?.addEventListener("click", () => {
     showToast("Redirigiendo a PayPal...");
     setTimeout(() => window.open(CONFIG.paypalUrl, "_blank"), 800);
@@ -335,27 +200,27 @@ import logoBinance from "../assets/icons/logo-binance.webp";
     openApp("binance");
   });
 
-  // LÓGICA DE PESTAÑAS (TABS)
+  // LÓGICA DE PESTAÑAS
   const bCol = document.getElementById("btn-colombia");
   const bInt = document.getElementById("btn-internacional");
   const cCol = document.getElementById("content-colombia");
   const cInt = document.getElementById("content-internacional");
 
-  function toggle(isInt) {
+  function toggle(isInt: boolean) {
     if (isInt) {
-      bInt.className =
-        "w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]";
-      bCol.className =
-        "w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100";
-      cCol.classList.add("hidden");
-      cInt.classList.remove("hidden");
+      bInt?.classList.add("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
+      bInt?.classList.remove("bg-white", "text-slate-400", "border-2");
+      bCol?.classList.add("bg-white", "text-slate-400", "border-2");
+      bCol?.classList.remove("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
+      cCol?.classList.add("hidden");
+      cInt?.classList.remove("hidden");
     } else {
-      bCol.className =
-        "w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]";
-      bInt.className =
-        "w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100";
-      cInt.classList.add("hidden");
-      cCol.classList.remove("hidden");
+      bCol?.classList.add("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
+      bCol?.classList.remove("bg-white", "text-slate-400", "border-2");
+      bInt?.classList.add("bg-white", "text-slate-400", "border-2");
+      bInt?.classList.remove("bg-[#0d2137]", "text-white", "shadow-lg", "translate-y-[-2px]");
+      cInt?.classList.add("hidden");
+      cCol?.classList.remove("hidden");
     }
   }
 
@@ -364,17 +229,6 @@ import logoBinance from "../assets/icons/logo-binance.webp";
 </script>
 
 <style>
-  .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 </style>
