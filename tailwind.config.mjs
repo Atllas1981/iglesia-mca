@@ -11,6 +11,17 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
       },
+      // --- AÑADE ESTO DESDE AQUÍ ---
+      keyframes: {
+        gradient: {
+          '0%': { 'background-position': '0% center' },
+          '100%': { 'background-position': '200% center' },
+        },
+      },
+      animation: {
+        gradient: 'gradient 3s linear infinite',
+      },
+      // --- HASTA AQUÍ ---
     },
   },
   plugins: [],

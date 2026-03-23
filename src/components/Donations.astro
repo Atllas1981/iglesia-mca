@@ -39,10 +39,10 @@ const bancosBreB = [
 ];
 ---
 
-<section id="donations" class="py-24 bg-slate-50 relative overflow-hidden">
+<section id="donations" class="py-24 bg-slate-50 relative overflow-hidden font-inter text-slate-900">
   <div class="max-w-4xl mx-auto px-6 text-center">
-    <h2 class="font-title text-4xl font-extrabold text-slate-900 mb-4">Siembra en nuestro ministerio</h2>
-    <p class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg italic italic">"Cada uno debe dar según lo que haya decidido en su corazón..."</p>
+    <h2 class="font-montserrat text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Siembra en nuestro ministerio</h2>
+    <p class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg italic">"Cada uno debe dar según lo que haya decidido en su corazón..."</p>
 
     <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-6 relative z-10">
       <div class="flex flex-col gap-2 mb-10">
@@ -64,7 +64,9 @@ const bancosBreB = [
               <div class="py-2 px-4 text-white text-[11px] font-bold text-left uppercase tracking-tight opacity-90">Transfiere con tu <span class="underline">Llave Bre-B</span></div>
               <div class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4">
                 <span class="font-mono font-bold text-slate-800 text-lg tracking-wider">310 123 4567</span>
-                <div class="bg-[#1a5f7a] text-white p-3 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div>
+                <div class="bg-[#1a5f7a] text-white p-3 rounded-lg">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </div>
               </div>
             </div>
 
@@ -83,11 +85,11 @@ const bancosBreB = [
       
       <div id="content-internacional" class="hidden animate-fade-in">
         <div class="flex flex-col gap-4 max-w-md mx-auto py-8">
-            <button id="btn-paypal" class="w-full bg-[#0070ba] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all">
+            <button id="btn-paypal" class="w-full bg-[#0070ba] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
                 <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoPaypal.src} class="w-full h-full object-cover scale-110" /></div>
                 <p class="font-bold text-lg">Donar con PayPal</p>
             </button>
-            <button id="btn-binance" class="w-full bg-[#1e2329] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all">
+            <button id="btn-binance" class="w-full bg-[#1e2329] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
                 <div class="w-11 h-11 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoBinance.src} class="w-full h-full object-cover scale-110" /></div>
                 <p class="font-bold text-lg">Dona con Binance Pay</p>
             </button>
@@ -97,155 +99,82 @@ const bancosBreB = [
   </div>
 
   <div id="modal-bancolombia" class="fixed inset-0 z-[100] grid place-items-center bg-slate-900/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-6">
-    <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-sm relative text-center scale-95 transition-transform duration-300 shadow-2xl border border-slate-100">
+    <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-sm relative text-center scale-95 transition-transform duration-300 shadow-2xl">
       <button id="close-modal-banco" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600 font-bold text-3xl">×</button>
-      
       <div class="w-24 h-24 bg-white rounded-full mx-auto mb-6 shadow-xl flex items-center justify-center border-2 border-slate-50 overflow-hidden">
         <img src={logoBancolombia.src} class="w-full h-full object-contain scale-150" />
       </div>
-      
       <h3 class="text-3xl font-black text-slate-900 mb-2 leading-tight">¡Cuenta Copiada!</h3>
-      
       <div class="bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 px-6 mt-4 mb-2 shadow-inner">
         <p class="text-3xl font-mono font-black tracking-widest text-slate-900">79595061933</p>
       </div>
       <p class="text-sm font-bold text-slate-400 mb-6 uppercase tracking-widest">Cuenta de Ahorros</p>
-
-      <p class="text-slate-600 text-sm mb-8 font-medium leading-relaxed italic">
-        Abre tu App Bancolombia <span class="font-bold">manualmente</span> y pega el número de cuenta.
-      </p>
-
-      <button id="accept-modal-banco" class="bg-[#0d2137] text-white font-black w-full py-5 rounded-2xl shadow-xl hover:shadow-2xl transition active:scale-95 uppercase tracking-wide">Aceptar</button>
+      <p class="text-slate-600 text-sm mb-8 font-medium italic">Abre tu App Bancolombia <span class="font-bold">manualmente</span> y pega el número.</p>
+      <button id="accept-modal-banco" class="bg-[#0d2137] text-white font-black w-full py-5 rounded-2xl shadow-xl hover:shadow-2xl transition active:scale-95 uppercase">Aceptar</button>
     </div>
   </div>
 
- <div id="modal-breb" class="fixed inset-0 z-[110] grid place-items-center bg-[#0d2137]/90 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 px-6">
+  <div id="modal-breb" class="fixed inset-0 z-[110] grid place-items-center bg-[#0d2137]/90 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 px-6">
     <div class="bg-gradient-to-br from-[#0d2137] to-[#1a5f7a] rounded-[3rem] p-8 w-full max-w-sm relative text-center scale-95 transition-transform duration-300 overflow-hidden border border-white/10 shadow-2xl">
-      
       <button id="close-modal-breb" class="absolute top-6 right-6 text-white/30 hover:text-white text-3xl font-bold z-20">×</button>
-      
-      <div class="text-center">
-        <div class="flex justify-center mb-6 relative z-10">
-          <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-slate-50 p-4 overflow-hidden">
-            <img 
-              src={logoBreb.src} 
-              alt="Logo Bre-B" 
-              class="w-full h-full object-contain transform scale-150 origin-center mix-blend-multiply" 
-            />
-          </div>
+      <div class="flex justify-center mb-6 relative z-10">
+        <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-slate-50 p-4 overflow-hidden">
+          <img src={logoBreb.src} alt="Logo Bre-B" class="w-full h-full object-contain transform scale-150 mix-blend-multiply" />
         </div>
-        
-        <h3 class="text-3xl font-black text-white mb-2 leading-tight uppercase tracking-tight">¡Llave Copiada!</h3>
-        
-        <div class="mt-6 mb-4">
-          <div class="bg-black/20 border-2 border-white/5 rounded-2xl px-5 py-4 inline-block shadow-inner">
-            <p class="text-3xl font-mono font-black tracking-wider text-white">310 123 4567</p>
-          </div>
-        </div>
-        
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-6">Válido para todos los bancos:</p>
-        
-        <div class="relative w-full overflow-hidden mb-10 h-14">
-          <div class="flex items-center gap-12 animate-scroll whitespace-nowrap will-change-transform">
-            {bancosBreB.map((banco) => (
-              <img 
-                src={banco.src} 
-                alt={banco.alt} 
-                class="h-12 w-auto flex-shrink-0 object-contain hover:scale-110 transition-transform duration-300" 
-              />
-            ))}
-            {bancosBreB.map((banco) => (
-              <img 
-                src={banco.src} 
-                alt={banco.alt} 
-                class="h-12 w-auto flex-shrink-0 object-contain hover:scale-110 transition-transform duration-300" 
-              />
-            ))}
-          </div>
-        </div>
-        
-        <p class="text-white/80 text-sm mb-8 font-medium italic leading-relaxed">
-          Busca la opción <span class="text-white font-bold">'Transferir a Bre-B'</span> en tu app bancaria favorita.
-        </p>
-        
-        <button id="accept-modal-breb" class="bg-white text-[#0d2137] hover:bg-slate-100 text-lg font-black w-full py-5 rounded-2xl shadow-xl hover:shadow-2xl transition active:scale-95 uppercase tracking-wide">
-          Entendido
-        </button>
       </div>
+      <h3 class="text-3xl font-black text-white mb-2 leading-tight uppercase">¡Llave Copiada!</h3>
+      <div class="mt-6 mb-4">
+        <div class="bg-black/20 border-2 border-white/5 rounded-2xl px-5 py-4 inline-block shadow-inner text-white font-mono text-3xl font-black">310 123 4567</div>
+      </div>
+      <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-6">Válido para todos los bancos:</p>
+      <div class="relative w-full overflow-hidden mb-10 h-14">
+        <div class="flex items-center gap-12 animate-scroll whitespace-nowrap">
+          {bancosBreB.concat(bancosBreB).map((banco) => (
+            <img src={banco.src} alt={banco.alt} class="h-12 w-auto flex-shrink-0 object-contain" />
+          ))}
+        </div>
+      </div>
+      <p class="text-white/80 text-sm mb-8 font-medium italic">Busca la opción <span class="text-white font-bold">'Transferir a Bre-B'</span> en tu app favorita.</p>
+      <button id="accept-modal-breb" class="bg-white text-[#0d2137] hover:bg-slate-100 text-lg font-black w-full py-5 rounded-2xl shadow-xl transition active:scale-95 uppercase">Entendido</button>
     </div>
   </div>
-
-      <p class="text-white/80 text-sm mb-8 font-medium italic leading-relaxed">
-        Busca la opción <span class="text-white font-bold">'Transferir a Bre-B'</span> en tu app bancaria favorita.
-      </p>
-
-      <button id="accept-modal-breb" class="bg-white text-[#0d2137] font-black w-full py-5 rounded-2xl shadow-xl hover:shadow-2xl transition active:scale-95 uppercase tracking-wide">
-        Entendido
-      </button>
-    </div>
-  </div>
-      
-      <p class="text-white/80 text-sm mb-8 font-medium italic leading-relaxed">
-        Elige <span class="text-white font-bold">'Transferir a Bre-B'</span> en tu app bancaria favorita.
-      </p>
-      
-      <button id="accept-modal-breb" class="bg-white text-[#0d2137] hover:bg-slate-100 text-lg font-black w-full py-5 rounded-2xl shadow-xl hover:shadow-2xl transition transform active:scale-95 uppercase tracking-wide">
-        Entendido
-      </button>
-    </div>
-  </div>
-</div>
 
   <div id="toast-msg" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-3 rounded-full text-sm font-bold opacity-0 transition-all pointer-events-none z-[200] shadow-2xl translate-y-4">¡Copiado!</div>
 </section>
 
 <style>
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .animate-scroll {
-    display: flex;
-    width: max-content;
-    animation: scroll 40s linear infinite; /* Un poco más lento para que se aprecien los logos */
-  }
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .animate-scroll { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+  .animate-scroll:hover { animation-play-state: paused; }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <script>
   const CONFIG = { account: "79595061933", transfiya: "3101234567" };
   const toast = document.getElementById("toast-msg");
 
-  function showToast(msg: string) {
+  function showToast(msg) {
     if (!toast) return;
     toast.innerText = msg;
     toast.classList.remove("opacity-0", "translate-y-4");
     setTimeout(() => toast.classList.add("opacity-0", "translate-y-4"), 3000);
   }
 
-  function handleModal(id: string, show: boolean) {
+  function handleModal(id, show) {
     const m = document.getElementById(id);
-    const c = m?.querySelector('div');
-    if (!m || !c) return;
+    if (!m) return;
+    const c = m.querySelector('div');
     if (show) {
       m.classList.remove("opacity-0", "pointer-events-none");
-      c.classList.replace("scale-95", "scale-100");
+      c?.classList.replace("scale-95", "scale-100");
     } else {
       m.classList.add("opacity-0", "pointer-events-none");
-      c.classList.replace("scale-100", "scale-95");
+      c?.classList.replace("scale-100", "scale-95");
     }
   }
 
-  // Eventos Nequi / Bancolombia / Bre-B
+  // --- EVENTOS ---
   document.getElementById("btn-nequi")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.account);
     showToast("Cuenta copiada. Abriendo Nequi...");
@@ -258,17 +187,25 @@ const bancosBreB = [
     showToast("¡Cuenta copiada!");
   });
 
-  document.getElementById("trigger-breb")?.addEventListener("click", () => {
+  document.getElementById("trigger-breb")?.addEventListener("click", (e) => {
+    e.stopPropagation();
     navigator.clipboard.writeText(CONFIG.transfiya);
     handleModal("modal-breb", true);
     showToast("¡Llave Bre-B copiada!");
   });
 
-  // Botones de cierre
-  document.getElementById("close-modal-banco")?.addEventListener("click", () => handleModal("modal-bancolombia", false));
-  document.getElementById("accept-modal-banco")?.addEventListener("click", () => handleModal("modal-bancolombia", false));
-  document.getElementById("close-modal-breb")?.addEventListener("click", () => handleModal("modal-breb", false));
-  document.getElementById("accept-modal-breb")?.addEventListener("click", () => handleModal("modal-breb", false));
+  // Botones Cerrar (Bancolombia)
+  ["close-modal-banco", "accept-modal-banco"].forEach(id => {
+    document.getElementById(id)?.addEventListener("click", () => handleModal("modal-bancolombia", false));
+  });
+
+  // Botones Cerrar (Bre-B)
+  ["close-modal-breb", "accept-modal-breb"].forEach(id => {
+    document.getElementById(id)?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      handleModal("modal-breb", false);
+    });
+  });
 
   // Lógica de Tabs
   const bC = document.getElementById("btn-colombia");
@@ -276,14 +213,14 @@ const bancosBreB = [
   const cC = document.getElementById("content-colombia");
   const cI = document.getElementById("content-internacional");
 
-  function setTab(isInt: boolean) {
+  function setTab(isInt) {
     if (isInt) {
-      bI!.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
-      bC!.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
+      bI.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
+      bC.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
       cC?.classList.add("hidden"); cI?.classList.remove("hidden");
     } else {
-      bC!.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
-      bI!.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
+      bC.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
+      bI.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
       cI?.classList.add("hidden"); cC?.classList.remove("hidden");
     }
   }
