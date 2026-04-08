@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import LiveCounter from "../components/LiveCounter.jsx";
+import BookHero from "../components/BookHero.astro";
+import Donations from "../components/Donations.astro";
+import Location from "../components/Location.astro";
+
+// Importamos el componente de optimización de imágenes de Astro
+import { Image } from "astro:assets";
+---
+
+<Layout>
+    <main>
+        <Hero />
+
+        <div class="relative z-50 -mt-20">
+            <LiveCounter client:load />
+        </div>
+
+        <div class="pt-8 relative z-10">
+            <Location />
+            <Donations />
+        </div>
+
+        <div class="relative z-10 mt-12 mb-0">
+            <BookHero
+                secondaryCta={{
+                    text: "Ver página del libro",
+                    link: `${import.meta.env.BASE_URL}/libro`,
+                }}
+            />
+        </div>
+    </main>
+</Layout>
