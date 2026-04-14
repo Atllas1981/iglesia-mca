@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tus variables personalizadas para la v3/Astro */
+:root {
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --color-mca-blue: #0b1f3a;
+  --color-mca-gold: #d4af37;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+h1, h2, h3, h4, h5, h6, .font-title {
+  font-family: var(--font-montserrat);
+}

@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import logoMCA from "../assets/LogoMCA.webp";
+---
+
+<footer class="bg-slate-900 text-slate-400 py-12 text-center mt-auto">
+    <div class="max-w-4xl mx-auto px-6">
+        <Image
+            src={logoMCA}
+            alt="MCA Logo"
+            class="h-12 w-auto mx-auto mb-6 opacity-75 grayscale hover:grayscale-0 transition-all duration-300"
+        />
+        <p class="mb-4 text-sm max-w-md mx-auto">
+            Ministerio Como las Águilas. Extendiendo el reino de Dios y
+            transformando vidas en Floridablanca y el mundo.
+        </p>
+        <div class="h-px w-24 bg-slate-800 mx-auto mb-6"></div>
+        <p class="text-xs">
+            &copy; {new Date().getFullYear()} Iglesia MCA Floridablanca. Todos los
+            derechos reservados.
+        </p>
+    </div>
+</footer>

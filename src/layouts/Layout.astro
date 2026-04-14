@@ -1,0 +1,68 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const {
+	title = "Iglesia MCA Floridablanca",
+	description = "Iglesia MCA Floridablanca - Ministerio Como las Águilas. Vuela alto en la presencia de Dios.",
+	image = "/OgMCA.jpg",
+} = Astro.props;
+
+// Construimos la URL correcta considerando el base path de GitHub Pages
+const base = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const cleanImage = image.startsWith("/") ? image.slice(1) : image;
+const ogImageURL = new URL(`${base}${cleanImage}`, Astro.site ?? Astro.url);
+const faviconURL = `${base}favicon.svg`;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href={faviconURL} />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={ogImageURL} />
+
+		<title>{title}</title>
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body
+		class="antialiased bg-white text-slate-900 flex flex-col min-h-screen"
+	>
+		<div class="flex-grow">
+			<slot />
+		</div>
+		<Footer />
+	</body>
+</html>

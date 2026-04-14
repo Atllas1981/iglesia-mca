@@ -1,0 +1,148 @@
+---
+export interface Slide {
+  imageUrl: string;
+  title?: string;
+  url?: string;
+}
+
+export interface Props {
+  title?: string;
+  slides: Slide[];
+}
+
+const { title = "Cartelera", slides = [] } = Astro.props;
+---
+
+<section class="py-20 bg-slate-50 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 leading-none">
+      {title}
+    </h2>
+    
+    <!-- Navigation Controls -->
+    <div class="hidden md:flex gap-3 items-center pb-1">
+      <button class="btn-left h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button class="btn-right h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Siguiente">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="cartelera-container w-full relative">
+    <!-- Slider Container con Snap y Hide Scrollbar -->
+    <div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-16 pt-4 no-scrollbar">
+      {slides.map((slide) => (
+        <article class="relative flex-none w-[85%] md:w-[45%] lg:w-[31%] aspect-video snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200">
+          <a href={slide.url || "#"} class="block w-full h-full" aria-label={slide.title || "Ver diapositiva"}>
+            <figure class="w-full h-full overflow-hidden m-0">
+              <img 
+                src={slide.imageUrl} 
+                alt={slide.title || "Imagen de anuncio"} 
+                loading="lazy" 
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
+              />
+            </figure>
+            
+            {slide.title && (
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity group-hover:opacity-100 flex items-end">
+                <div class="p-6 md:p-8 w-full">
+                  <h3 class="text-white text-xl md:text-2xl font-bold leading-tight drop-shadow-lg">
+                    {slide.title}
+                  </h3>
+                </div>
+              </div>
+            )}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupCarteleras() {
+    const containers = document.querySelectorAll('.cartelera-container');
+    
+    containers.forEach((container) => {
+      const slider = container.querySelector('.cartelera-slider');
+      const btnLeft = container.parentElement.querySelector('.btn-left');
+      const btnRight = container.parentElement.querySelector('.btn-right');
+
+      if (!slider) return;
+
+      // Event listeners for desktop arrows
+      if (btnLeft) {
+        btnLeft.addEventListener('click', () => {
+          // Desplazarse un 80% del ancho del slider (para mostrar elementos anterior)
+          const offset = slider.clientWidth * 0.8;
+          slider.scrollBy({ left: -offset, behavior: 'smooth' });
+        });
+      }
+
+      if (btnRight) {
+        btnRight.addEventListener('click', () => {
+          const offset = slider.clientWidth * 0.8;
+          slider.scrollBy({ left: offset, behavior: 'smooth' });
+        });
+      }
+
+      // Intersection Observer para disparar animación "peek"
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Se le añade la clase que dispara el CSS keyframes
+            slider.classList.add('animate-peek');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 }); // Se activa cuando un 30% del componente es visible
+
+      observer.observe(container);
+    });
+  }
+
+  // Ejecutar script al cargar la página
+  // Para que funcione con Astro ViewTransitions si alguna vez se añaden
+  document.addEventListener('DOMContentLoaded', setupCarteleras);
+  document.addEventListener('astro:page-load', setupCarteleras);
+</script>
+
+<style>
+  /* 
+    Ocultar scrollbar pero mantener scroll nativo 
+    (Optimizado para Core Web Vitals y UX) 
+  */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari, Opera */
+  }
+
+  /* Animación para indicar scrolleabilidad en móvil y escritorio */
+  .animate-peek > article {
+    animation: slider-peek 1.2s ease-in-out 0.2s 1 normal forwards;
+  }
+
+  @keyframes slider-peek {
+    0% {
+      transform: translateX(0);
+    }
+    40%, 60% {
+      /* Se desplaza ligeramente a la izquierda para asomar la siguiente slide */
+      transform: translateX(-40px);
+    }
+    100% {
+      /* Vuelve a su lugar */
+      transform: translateX(0);
+    }
+  }
+</style>
