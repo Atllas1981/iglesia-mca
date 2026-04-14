@@ -5,6 +5,7 @@ import LiveCounter from "../components/LiveCounter.jsx";
 import BookHero from "../components/BookHero.astro";
 import Donations from "../components/Donations.astro";
 import Location from "../components/Location.astro";
+<<<<<<< HEAD
 import CarteleraSlider from "../components/CarteleraSlider.astro";
 
 // Importamos el componente de optimización de imágenes de Astro
@@ -17,6 +18,11 @@ const slidesCartelera = [
     { imageUrl: "https://placehold.co/1600x900/94a3b8/ffffff?text=4", title: "Sesión Especial 4", url: "#" },
     { imageUrl: "https://placehold.co/1600x900/cbd5e1/1e293b?text=5", title: "Encuentro Presencial 5", url: "#" },
 ];
+=======
+
+// Importamos el componente de optimización de imágenes de Astro
+import { Image } from "astro:assets";
+>>>>>>> f25040af1dcb418ddb9dcae6de2afa81aefb6191
 ---
 
 <Layout>
@@ -27,9 +33,12 @@ const slidesCartelera = [
             <LiveCounter client:load />
         </div>
 
+<<<<<<< HEAD
         <!-- Integración del nuevo componente de Cartelera  -->
         <CarteleraSlider title="Próximos Eventos" slides={slidesCartelera} />
 
+=======
+>>>>>>> f25040af1dcb418ddb9dcae6de2afa81aefb6191
         <div class="pt-8 relative z-10">
             <Location />
             <Donations />
