@@ -8,15 +8,39 @@ import Location from "../components/Location.astro";
 import CarteleraSlider from "../components/CarteleraSlider.astro";
 
 // Importamos el componente de optimización de imágenes de Astro
-import { Image } from "astro:assets";
+import { v2 as cloudinary } from "cloudinary";
 
-const slidesCartelera = [
-    { imageUrl: "https://placehold.co/1600x900/334155/ffffff?text=1", title: "Evento Programado 1", url: "#" },
-    { imageUrl: "https://placehold.co/1600x900/475569/ffffff?text=2", title: "Conferencia Magistral 2", url: "#" },
-    { imageUrl: "https://placehold.co/1600x900/64748b/ffffff?text=3", title: "Taller Práctico 3", url: "#" },
-    { imageUrl: "https://placehold.co/1600x900/94a3b8/ffffff?text=4", title: "Sesión Especial 4", url: "#" },
-    { imageUrl: "https://placehold.co/1600x900/cbd5e1/1e293b?text=5", title: "Encuentro Presencial 5", url: "#" },
-];
+// Configurar Cloudinary usando las variables de entorno
+cloudinary.config({
+  cloud_name: import.meta.env.CLOUDINARY_CLOUD_NAME,
+  api_key: import.meta.env.CLOUDINARY_API_KEY,
+  api_secret: import.meta.env.CLOUDINARY_API_SECRET,
+  secure: true
+});
+
+let slidesCartelera = [];
+
+try {
+  // Buscar las últimas 5 imágenes subidas a Cloudinary
+  const result = await cloudinary.search
+    .expression('resource_type:image')
+    .sort_by('created_at', 'desc')
+    .max_results(5)
+    .execute();
+
+  // Mapear el resultado al formato que espera CarteleraSlider
+  slidesCartelera = result.resources.map((file, index) => ({
+    imageUrl: file.secure_url,
+    title: file.public_id.split('/').pop().replace(/_/g, ' '), // Formatea un poco el título
+    url: "#",
+  }));
+} catch (error) {
+  console.error("Error cargando imágenes de Cloudinary:", error);
+  // Fallback a las imágenes locales si la conexión falla o no hay internet
+  slidesCartelera = [
+    { imageUrl: "https://placehold.co/1200x1600/334155/ffffff?text=Evento+1", title: "Evento Programado", url: "#" },
+  ];
+}
 
 ---
 

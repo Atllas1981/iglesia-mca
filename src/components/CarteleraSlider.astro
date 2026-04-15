@@ -38,7 +38,7 @@ const { title = "Cartelera", slides = [] } = Astro.props;
     <!-- Slider Container con Snap y Hide Scrollbar -->
     <div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-16 pt-4 no-scrollbar">
       {slides.map((slide) => (
-        <article class="relative flex-none w-[85%] md:w-[45%] lg:w-[31%] aspect-video snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200">
+        <article class="relative flex-none w-[70%] sm:w-[45%] md:w-[30%] lg:w-[22%] aspect-[3/4] lg:aspect-[4/5] snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200">
           <a href={slide.url || "#"} class="block w-full h-full" aria-label={slide.title || "Ver diapositiva"}>
             <figure class="w-full h-full overflow-hidden m-0">
               <img 
