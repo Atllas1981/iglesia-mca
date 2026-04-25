@@ -7,26 +7,31 @@ import Donations from "../components/Donations.astro";
 import Location from "../components/Location.astro";
 import CarteleraSlider from "../components/CarteleraSlider.astro";
 
-// Importamos el componente de optimización de imágenes de Astro
-import { v2 as cloudinary } from "cloudinary";
-
 // Configurar Cloudinary usando las variables de entorno
-cloudinary.config({
-  cloud_name: import.meta.env.CLOUDINARY_CLOUD_NAME,
-  api_key: import.meta.env.CLOUDINARY_API_KEY,
-  api_secret: import.meta.env.CLOUDINARY_API_SECRET,
-  secure: true
-});
+const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
+const apiKey = import.meta.env.CLOUDINARY_API_KEY;
+const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
 
 let slidesCartelera = [];
 
 try {
-  // Buscar las últimas 5 imágenes subidas a Cloudinary
-  const result = await cloudinary.search
-    .expression('resource_type:image')
-    .sort_by('created_at', 'desc')
-    .max_results(5)
-    .execute();
+  const auth = btoa(`${apiKey}:${apiSecret}`);
+  const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/resources/search`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${auth}`
+    },
+    body: JSON.stringify({
+      expression: 'resource_type:image',
+      sort_by: [{ created_at: 'desc' }],
+      max_results: 5
+    })
+  });
+  
+  if (!response.ok) throw new Error("Error fetching Cloudinary");
+  
+  const result = await response.json();
 
   // Mapear el resultado al formato que espera CarteleraSlider
   slidesCartelera = result.resources.map((file, index) => ({
