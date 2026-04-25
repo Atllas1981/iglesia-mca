@@ -1,263 +1,154 @@
 ---
+// src/components/CarteleraSlider.astro
+import { client, urlFor } from '../lib/sanity';
 
-export interface Slide {
+// 1. Traemos los datos de tu Sanity (nmqh8k0r)
+const cartelesSanity = await client.fetch(`*[_type == "cartelera" && publicado == true] | order(_createdAt desc)`);
 
-imageUrl: string;
+// 2. Mapeamos los datos de Sanity al formato 'Slide' que usa tu componente
+const slides = cartelesSanity.map((cartel: any) => ({
+  imageUrl: urlFor(cartel.imagen).width(1200).url(),
+  title: cartel.titulo
+}));
 
-title?: string;
-
-url?: string;
-
-}
-
-
-
-export interface Props {
-
-title?: string;
-
-slides: Slide[];
-
-}
-
-
-
-const { title = "Cartelera", slides = [] } = Astro.props;
-
+const { title = "Cartelera" } = Astro.props;
 ---
 
-
-
 <section class="py-20 bg-slate-50 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 leading-none">
+      {title}
+    </h2>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="hidden md:flex gap-3 items-center pb-1">
+      <button class="btn-left h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button class="btn-right h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Siguiente">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
 
-<h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 leading-none">
-
-{title}
-
-</h2>
-
-
-<!-- Navigation Controls -->
-
-<div class="hidden md:flex gap-3 items-center pb-1">
-
-<button class="btn-left h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Anterior">
-
-<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-
-<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-
-</svg>
-
-</button>
-
-<button class="btn-right h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Siguiente">
-
-<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-
-<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-
-</svg>
-
-</button>
-
-</div>
-
-</div>
-
-
-
-<div class="cartelera-container w-full relative">
-
-<!-- Slider Container con Snap y Hide Scrollbar -->
-
-<div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-16 pt-4 no-scrollbar">
-
-{slides.map((slide) => (
-
-<article class="relative flex-none w-[70%] sm:w-[45%] md:w-[30%] lg:w-[22%] aspect-[3/4] lg:aspect-[4/5] snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200 slider-card" data-image-url={slide.imageUrl} aria-label={slide.title || "Ver diapositiva"}>
-
-<figure class="w-full h-full overflow-hidden m-0">
-
-<img
-
-src={slide.imageUrl}
-
-alt={slide.title || "Imagen de anuncio"}
-
-loading="lazy"
-
-decoding="async"
-
-class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
-
-/>
-
-</figure>
-
-</article>
-
-))}
-
-</div>
-
-</div>
-
+  <div class="cartelera-container w-full relative">
+    <div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-16 pt-4 no-scrollbar">
+      {slides.map((slide: any) => (
+        <article class="relative flex-none w-[70%] sm:w-[45%] md:w-[30%] lg:w-[22%] aspect-[3/4] lg:aspect-[4/5] snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200 slider-card" data-image-url={slide.imageUrl} aria-label={slide.title || "Ver diapositiva"}>
+          <figure class="w-full h-full overflow-hidden m-0">
+            <img
+              src={slide.imageUrl}
+              alt={slide.title || "Imagen de anuncio"}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
+            />
+          </figure>
+        </article>
+      ))}
+    </div>
+  </div>
 </section>
 
-<!-- Modal Lightbox -->
 <dialog id="imageModal" class="backdrop:bg-black/90 bg-transparent p-0 m-auto max-w-5xl max-h-screen rounded-xl shadow-2xl backdrop:backdrop-blur-sm open:flex flex-col items-center justify-center border-none">
-<div class="relative flex flex-col items-center">
-<button id="closeModal" class="fixed top-4 right-4 md:top-6 md:right-6 z-50 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 transition-colors cursor-pointer border border-white/20" aria-label="Cerrar modal">
-<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-</svg>
-</button>
-<img id="modalImage" src="" alt="Imagen ampliada" class="max-w-full max-h-[85vh] object-contain rounded-lg" />
-</div>
+  <div class="relative flex flex-col items-center">
+    <button id="closeModal" class="fixed top-4 right-4 md:top-6 md:right-6 z-50 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 transition-colors cursor-pointer border border-white/20" aria-label="Cerrar modal">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <img id="modalImage" src="" alt="Imagen ampliada" class="max-w-full max-h-[85vh] object-contain rounded-lg" />
+  </div>
 </dialog>
 
 <script>
+  function initCarteleras() {
+    const containers = document.querySelectorAll('.cartelera-container');
+    containers.forEach((container) => {
+      const slider = container.querySelector('.cartelera-slider');
+      const navContainer = container.parentElement;
+      const btnLeft = navContainer ? navContainer.querySelector('.btn-left') : null;
+      const btnRight = navContainer ? navContainer.querySelector('.btn-right') : null;
 
-function initCarteleras() {
+      if (!slider) return;
 
-  const containers = document.querySelectorAll('.cartelera-container');
-
-  containers.forEach((container) => {
-
-    const slider = container.querySelector('.cartelera-slider');
-    
-    const navContainer = container.parentElement;
-
-    const btnLeft = navContainer ? navContainer.querySelector('.btn-left') : null;
-
-    const btnRight = navContainer ? navContainer.querySelector('.btn-right') : null;
-
-    if (!slider) return;
-
-    // Event listeners for desktop arrows
-
-    if (btnLeft) {
-
-      // Remove existing listeners by replacing the node (useful for Astro View Transitions)
-      const newBtnLeft = btnLeft.cloneNode(true);
-      if (btnLeft.parentNode) {
-        btnLeft.parentNode.replaceChild(newBtnLeft, btnLeft);
+      if (btnLeft) {
+        const newBtnLeft = btnLeft.cloneNode(true);
+        if (btnLeft.parentNode) btnLeft.parentNode.replaceChild(newBtnLeft, btnLeft);
+        newBtnLeft.addEventListener('click', () => {
+          const offset = slider.clientWidth * 0.8;
+          slider.scrollBy({ left: -offset, behavior: 'smooth' });
+        });
       }
 
-      newBtnLeft.addEventListener('click', () => {
-
-        const offset = slider.clientWidth * 0.8;
-
-        slider.scrollBy({ left: -offset, behavior: 'smooth' });
-
-      });
-
-    }
-
-    if (btnRight) {
-
-      const newBtnRight = btnRight.cloneNode(true);
-      if (btnRight.parentNode) {
-        btnRight.parentNode.replaceChild(newBtnRight, btnRight);
+      if (btnRight) {
+        const newBtnRight = btnRight.cloneNode(true);
+        if (btnRight.parentNode) btnRight.parentNode.replaceChild(newBtnRight, btnRight);
+        newBtnRight.addEventListener('click', () => {
+          const offset = slider.clientWidth * 0.8;
+          slider.scrollBy({ left: offset, behavior: 'smooth' });
+        });
       }
 
-      newBtnRight.addEventListener('click', () => {
-
-        const offset = slider.clientWidth * 0.8;
-
-        slider.scrollBy({ left: offset, behavior: 'smooth' });
-
-      });
-
-    }
-
-    // Intersection Observer para disparar animación "peek"
-
-    const observer = new IntersectionObserver((entries) => {
-
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-          slider.classList.add('animate-peek');
-
-          observer.unobserve(entry.target);
-
-        }
-
-      });
-
-    }, { threshold: 0.3 });
-
-    observer.observe(container);
-
-  });
-
-  // Modal logic
-  const modal = document.getElementById('imageModal') as HTMLDialogElement;
-  const modalImg = document.getElementById('modalImage') as HTMLImageElement;
-  const closeModalBtn = document.getElementById('closeModal');
-
-  if (modal && modalImg && closeModalBtn) {
-    const cards = document.querySelectorAll('.slider-card');
-    cards.forEach(card => {
-      // Refresh listeners
-      const newCard = card.cloneNode(true) as HTMLElement;
-      if (card.parentNode) {
-        card.parentNode.replaceChild(newCard, card);
-      }
-      
-      newCard.addEventListener('click', () => {
-        const imageUrl = newCard.getAttribute('data-image-url');
-        if (imageUrl) {
-          modalImg.src = imageUrl;
-          modal.showModal();
-          document.body.style.overflow = 'hidden';
-        }
-      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            slider.classList.add('animate-peek');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(container);
     });
 
-    const newCloseBtn = closeModalBtn.cloneNode(true);
-    if (closeModalBtn.parentNode) {
-      closeModalBtn.parentNode.replaceChild(newCloseBtn, closeModalBtn);
-    }
-    
-    newCloseBtn.addEventListener('click', () => {
-      modal.close();
-      document.body.style.overflow = '';
-    });
+    const modal = document.getElementById('imageModal') as HTMLDialogElement;
+    const modalImg = document.getElementById('modalImage') as HTMLImageElement;
+    const closeModalBtn = document.getElementById('closeModal');
 
-    // Close on backdrop click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
+    if (modal && modalImg && closeModalBtn) {
+      const cards = document.querySelectorAll('.slider-card');
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const imageUrl = card.getAttribute('data-image-url');
+          if (imageUrl) {
+            modalImg.src = imageUrl;
+            modal.showModal();
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+
+      closeModalBtn.addEventListener('click', () => {
         modal.close();
         document.body.style.overflow = '';
-      }
-    });
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.close();
+          document.body.style.overflow = '';
+        }
+      });
+    }
   }
 
-}
-
-// Initialize on first load and on view transitions
-initCarteleras();
-document.addEventListener('astro:page-load', initCarteleras);
-
+  initCarteleras();
+  document.addEventListener('astro:page-load', initCarteleras);
 </script>
 
 <style>
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
   .animate-peek {
     animation: slider-peek 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   @keyframes slider-peek {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(-50px);
-    }
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-50px); }
   }
 </style>

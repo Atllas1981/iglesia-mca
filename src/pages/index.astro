@@ -7,46 +7,6 @@ import Donations from "../components/Donations.astro";
 import Location from "../components/Location.astro";
 import CarteleraSlider from "../components/CarteleraSlider.astro";
 
-// Configurar Cloudinary usando las variables de entorno
-const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
-const apiKey = import.meta.env.CLOUDINARY_API_KEY;
-const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
-
-let slidesCartelera = [];
-
-try {
-  const auth = btoa(`${apiKey}:${apiSecret}`);
-  const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/resources/search`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${auth}`
-    },
-    body: JSON.stringify({
-      expression: 'resource_type:image',
-      sort_by: [{ created_at: 'desc' }],
-      max_results: 5
-    })
-  });
-  
-  if (!response.ok) throw new Error("Error fetching Cloudinary");
-  
-  const result = await response.json();
-
-  // Mapear el resultado al formato que espera CarteleraSlider
-  slidesCartelera = result.resources.map((file, index) => ({
-    imageUrl: file.secure_url,
-    title: file.public_id.split('/').pop().replace(/_/g, ' '), // Formatea un poco el título
-    url: "#",
-  }));
-} catch (error) {
-  console.error("Error cargando imágenes de Cloudinary:", error);
-  // Fallback a las imágenes locales si la conexión falla o no hay internet
-  slidesCartelera = [
-    { imageUrl: "https://placehold.co/1200x1600/334155/ffffff?text=Evento+1", title: "Evento Programado", url: "#" },
-  ];
-}
-
 ---
 
 <Layout>
@@ -58,7 +18,7 @@ try {
         </div>
 
         <!-- Integración del nuevo componente de Cartelera  -->
-        <CarteleraSlider title="Próximos Eventos" slides={slidesCartelera} />
+        <CarteleraSlider />
         <div class="pt-8 relative z-10">
             <Location />
             <Donations />
