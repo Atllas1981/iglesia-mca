@@ -5,7 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://iglesia-mca.pages.dev',
-  // Astro 6 gestiona automáticamente el renderizado bajo demanda al detectar el adaptador.
+  output: 'server', // <--- AÑADE ESTA LÍNEA
   integrations: [react(), tailwind()],
   adapter: cloudflare({
     platformProxy: {
