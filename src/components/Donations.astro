@@ -1,6 +1,7 @@
 ---
 // src/components/Donations.astro
 import qrImage from "../assets/QR-MCA.png";
+import qrBinance from "../assets/QRbinance.webp"; // Nueva importación
 import logoNequi from "../assets/icons/logo-nequi.webp";
 import logoBancolombia from "../assets/icons/logo-bancolombia.webp";
 import logoPaypal from "../assets/icons/logo-paypal.webp";
@@ -61,7 +62,7 @@ const bancosBreB = [
 
           <div class="flex flex-col gap-4">
             <div id="trigger-breb" class="bg-[#1a5f7a] rounded-2xl overflow-hidden cursor-pointer hover:brightness-110 active:scale-95 transition-all shadow-md">
-              <div class="py-2 px-4 text-white text-[11px] font-bold text-left uppercase tracking-tight opacity-90">Transfiere con tu <span class="underline">Llave  Bre-B</span></div>
+              <div class="py-2 px-4 text-white text-[11px] font-bold text-left uppercase tracking-tight opacity-90">Transfiere con tu <span class="underline">Llave Bre-B</span></div>
               <div class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4">
                 <span class="font-mono font-bold text-slate-800 text-lg tracking-wider">009 180 0969</span>
                 <div class="bg-[#1a5f7a] text-white p-3 rounded-lg">
@@ -84,15 +85,25 @@ const bancosBreB = [
       </div>
       
       <div id="content-internacional" class="hidden animate-fade-in">
-        <div class="flex flex-col gap-4 max-w-md mx-auto py-8">
+        <div class="flex flex-col gap-4 max-w-2xl mx-auto py-8">
             <button id="btn-paypal" class="w-full bg-[#0070ba] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
                 <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoPaypal.src} class="w-full h-full object-cover scale-110" /></div>
                 <p class="font-bold text-lg">Donar con PayPal</p>
             </button>
-            <button id="btn-binance" class="w-full bg-[#1e2329] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
-                <div class="w-11 h-11 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoBinance.src} class="w-full h-full object-cover scale-110" /></div>
-                <p class="font-bold text-lg">Dona con Binance Pay</p>
-            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-4">
+              <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Escanear Binance</p>
+                <div class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
+                  <img src={qrBinance.src} alt="QR Binance" class="w-44 h-44 object-contain" />
+                </div>
+              </div>
+
+              <button id="btn-binance" class="w-full bg-[#1e2329] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
+                  <div class="w-11 h-11 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoBinance.src} class="w-full h-full object-cover scale-110" /></div>
+                  <p class="font-bold text-lg">Dona con Binance Pay</p>
+              </button>
+            </div>
         </div>
       </div>
     </div>
@@ -151,7 +162,13 @@ const bancosBreB = [
 </style>
 
 <script>
-  const CONFIG = { account: "79595061933", transfiya: "0091800969" };
+  const CONFIG = { 
+    account: "79595061933", 
+    transfiya: "0091800969",
+    paypal: "https://www.paypal.com/paypalme/omarsaiz",
+    binance: "https://app.binance.com/qr/dplk1fb0c59a4a2a4278aa39f6ef0f46b3b6"
+  };
+
   const toast = document.getElementById("toast-msg");
 
   function showToast(msg) {
@@ -174,7 +191,7 @@ const bancosBreB = [
     }
   }
 
-  // --- EVENTOS ---
+  // EVENTOS
   document.getElementById("btn-nequi")?.addEventListener("click", () => {
     navigator.clipboard.writeText(CONFIG.account);
     showToast("Cuenta copiada. Abriendo Nequi...");
@@ -194,12 +211,18 @@ const bancosBreB = [
     showToast("¡Llave Bre-B copiada!");
   });
 
-  // Botones Cerrar (Bancolombia)
+  document.getElementById("btn-paypal")?.addEventListener("click", () => {
+    window.open(CONFIG.paypal, "_blank");
+  });
+
+  document.getElementById("btn-binance")?.addEventListener("click", () => {
+    window.location.href = CONFIG.binance;
+  });
+
   ["close-modal-banco", "accept-modal-banco"].forEach(id => {
     document.getElementById(id)?.addEventListener("click", () => handleModal("modal-bancolombia", false));
   });
 
-  // Botones Cerrar (Bre-B)
   ["close-modal-breb", "accept-modal-breb"].forEach(id => {
     document.getElementById(id)?.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -207,24 +230,22 @@ const bancosBreB = [
     });
   });
 
-  // Lógica de Tabs
   const bC = document.getElementById("btn-colombia");
   const bI = document.getElementById("btn-internacional");
   const cC = document.getElementById("content-colombia");
   const cI = document.getElementById("content-internacional");
 
   function setTab(isInt) {
+    const activeClass = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
+    const inactiveClass = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
     if (isInt) {
-      bI.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
-      bC.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
+      bI.className = activeClass; bC.className = inactiveClass;
       cC?.classList.add("hidden"); cI?.classList.remove("hidden");
     } else {
-      bC.className = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
-      bI.className = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
+      bC.className = activeClass; bI.className = inactiveClass;
       cI?.classList.add("hidden"); cC?.classList.remove("hidden");
     }
   }
-
   bC?.addEventListener("click", () => setTab(false));
   bI?.addEventListener("click", () => setTab(true));
 </script>
