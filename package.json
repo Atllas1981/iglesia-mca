@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && cp -a dist/client/. dist/ && cp -a dist/server/. dist/ && mv dist/entry.mjs dist/_worker.js",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"
