@@ -1,0 +1,19 @@
+---
+import SanityStudio from '../../components/SanityStudio';
+
+// Esto asegura que la página no pre-renderice en el servidor de manera que rompa React (Sanity es un SPA)
+export const prerender = false;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Iglesia MCA</title>
+  <meta name="robots" content="noindex" />
+</head>
+<body style="margin: 0; padding: 0;">
+  <SanityStudio client:only="react" />
+</body>
+</html>
