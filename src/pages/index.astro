@@ -14,7 +14,7 @@ import CarteleraSlider from "../components/CarteleraSlider.astro";
         <Hero />
 
         <div class="relative z-50 -mt-20">
-            <LiveCounter client:load />
+            <LiveCounter client:only="react" />
         </div>
 
         <!-- Integración del nuevo componente de Cartelera  -->
