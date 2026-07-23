@@ -1,0 +1,12 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "mca"
+compatibility_date = "2024-04-25"
+pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "mca-kv"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "mca-r2"
