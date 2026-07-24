@@ -1,15 +1,32 @@
 ---
 // src/components/CarteleraSlider.astro
-import { client, urlFor } from '../lib/sanity';
 
-// 1. Traemos los datos de tu Sanity (nmqh8k0r)
-const cartelesSanity = await client.fetch(`*[_type == "cartelera" && publicado == true] | order(_createdAt desc)`);
+interface Slide {
+  id: string;
+  url: string;
+  alt: string;
+  order: number;
+  active: boolean;
+}
 
-// 2. Mapeamos los datos de Sanity al formato 'Slide' que usa tu componente
-const slides = cartelesSanity.map((cartel: any) => ({
-  imageUrl: urlFor(cartel.imagen).width(1200).url(),
-  title: cartel.titulo
-}));
+// Leer las diapositivas activas desde Cloudflare KV
+const runtime = Astro.locals.runtime;
+const KV = runtime?.env?.KV;
+
+let slides: { imageUrl: string; title: string }[] = [];
+
+if (KV) {
+  try {
+    const data = await KV.get('cartelera_slides');
+    const raw: Slide[] = data ? JSON.parse(data) : [];
+    slides = raw
+      .filter((s) => s.active)
+      .sort((a, b) => a.order - b.order)
+      .map((s) => ({ imageUrl: s.url, title: s.alt }));
+  } catch (e) {
+    console.error('Error leyendo cartelera desde KV:', e);
+  }
+}
 
 const { title = "Cartelera" } = Astro.props;
 ---
