@@ -28,7 +28,7 @@ jobs:
         run: pnpm run build
 
       - name: Remove generated wrangler.json (ASSETS binding conflicts with Pages)
-        run: rm -f dist/wrangler.json
+        run: rm -f dist/wrangler.json dist/server/wrangler.json
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
