@@ -5,7 +5,7 @@ pages_build_output_dir = "dist"
 
 [[kv_namespaces]]
 binding = "KV"
-id = "mca-kv"
+id = "5d729b13a1d74e378ad0bcab82936cc0"
 
 [[r2_buckets]]
 binding = "R2"
