@@ -27,8 +27,10 @@ jobs:
       - name: Build Astro
         run: pnpm run build
 
-      - name: Remove generated wrangler.json (ASSETS binding conflicts with Pages)
-        run: rm -f dist/wrangler.json dist/server/wrangler.json
+      - name: Remove generated wrangler configs (ASSETS binding conflicts with Pages)
+        run: |
+          find dist -name "wrangler.json" -delete
+          rm -rf .wrangler/deploy
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
