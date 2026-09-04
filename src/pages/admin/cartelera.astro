@@ -5,7 +5,7 @@ import { isAuthorized } from "../../lib/auth";
 
 export const prerender = false;
 
-const authenticated = isAuthorized(Astro.request);
+const authenticated = isAuthorized(Astro.request, (Astro.locals as any)?.runtime?.env);
 ---
 
 <Layout title="Administración de Cartelera - MCA">
