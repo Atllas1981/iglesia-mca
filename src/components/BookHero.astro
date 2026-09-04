@@ -4,136 +4,108 @@ import liderazgoFrente from "../assets/libro/LiderazgoBiblicoFrente.webp";
 import liderazgoTrasera from "../assets/libro/LiderazgoBiblicoTrasera.webp";
 import genesisFrente from "../assets/libro/DescubriendoGenesisFrente.webp";
 import genesisTrasera from "../assets/libro/DescubriendoGenesisTrasera.webp";
+
+const libros = [
+  {
+    titulo: ["Liderazgo", "Bíblico"],
+    descripcion: "Manual práctico para líderes, gerentes, miembros de grupos de trabajo, pastores, directores y mentores.",
+    linkAmazon: "https://www.amazon.com/dp/B0DHQNWF7M",
+    imagenFrente: liderazgoFrente,
+    imagenTrasera: liderazgoTrasera,
+    altFrente: "Portada Liderazgo Bíblico",
+    altTrasera: "Contraportada Liderazgo Bíblico",
+    traseraClases: "left-0 -top-6 sm:-top-12 w-[72%] rotate-[10deg]",
+    frenteClases: "w-[82%] translate-x-6 sm:translate-x-12 translate-y-4 sm:translate-y-8 rotate-0",
+    offsetContenedor: "-left-14 sm:-left-28 md:-left-36 w-[210px] min-[400px]:w-[250px] sm:w-[350px] md:w-[435px]"
+  },
+  {
+    titulo: ["Descubriendo", "Génesis"],
+    descripcion: "Libro de estudio profundo del Génesis con más de 150 revelaciones que confirman hechos especiales y desconocidos de los manuscritos en hebreo y arameo, con profunda traducción e investigación de los rollos del mar muerto.",
+    linkAmazon: "https://www.amazon.com/dp/B0DHQNWF7M",
+    imagenFrente: genesisFrente,
+    imagenTrasera: genesisTrasera,
+    altFrente: "Portada Descubriendo Génesis",
+    altTrasera: "Contraportada Descubriendo Génesis",
+    traseraClases: "-left-3 sm:-left-5 -top-12 sm:-top-24 w-[72%] rotate-[7deg]",
+    frenteClases: "w-[74%] translate-x-4 sm:translate-x-8 translate-y-3 sm:translate-y-6 rotate-[-8deg]",
+    offsetContenedor: "-left-12 sm:-left-24 md:-left-32 w-[210px] min-[400px]:w-[250px] sm:w-[350px] md:w-[435px]"
+  }
+];
 ---
 
-<section class="bg-[#0B132B] px-6 py-28 text-slate-800">
+<section class="overflow-x-hidden bg-[#0B132B] px-4 py-16 text-slate-800 sm:px-6 sm:py-28">
   <div class="mx-auto max-w-6xl">
     
     <!-- Badge Superior -->
-    <div class="mb-24 flex justify-center">
-      <div class="inline-flex items-center gap-2.5 rounded-full border border-slate-700 bg-slate-900/60 px-5 py-2 text-slate-200 shadow-sm backdrop-blur">
-        <svg class="h-4 w-4 fill-current text-white" viewBox="0 0 24 24">
+    <div class="mb-14 flex justify-center sm:mb-24">
+      <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-4 py-1.5 text-slate-200 shadow-sm backdrop-blur sm:gap-2.5 sm:px-5 sm:py-2">
+        <svg class="h-3.5 w-3.5 fill-current text-white sm:h-4 sm:w-4" viewBox="0 0 24 24" aria-hidden="true">
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
         </svg>
-        <span class="text-sm font-semibold tracking-wide">Profundiza en la Palabra</span>
+        <span class="text-xs font-semibold tracking-wide sm:text-sm">Profundiza en la Palabra</span>
       </div>
     </div>
 
     <!-- Grid de Tarjetas -->
-    <div class="grid grid-cols-1 justify-items-center gap-28 lg:grid-cols-2 lg:gap-24">
+    <div class="grid grid-cols-1 justify-items-center gap-16 sm:gap-28 lg:grid-cols-2 lg:gap-24">
+      {libros.map((libro) => (
+        <article class="relative flex aspect-square w-full max-w-[320px] flex-col justify-between rounded-[2rem] bg-[#E5E5E5] p-5 shadow-2xl min-[400px]:max-w-[360px] min-[400px]:p-6 sm:max-w-[430px] sm:rounded-[3rem] sm:p-10">
+          
+          <!-- Contenedor de Libros -->
+          <div class={`pointer-events-none absolute top-1/2 z-20 -translate-y-1/2 ${libro.offsetContenedor}`}>
+            <div class="relative w-full">
+              
+              <!-- Contraportada -->
+              <div class={`absolute drop-shadow-xl ${libro.traseraClases}`}>
+                <Image 
+                  src={libro.imagenTrasera} 
+                  alt={libro.altTrasera} 
+                  class="h-auto w-full object-contain" 
+                  width={480} 
+                  format="webp"
+                />
+              </div>
 
-      <!-- ═══ TARJETA 1: LIDERAZGO BÍBLICO ═══ -->
-      <div class="relative flex aspect-square w-full max-w-[430px] flex-col justify-between rounded-[3rem] bg-[#E5E5E5] p-8 sm:p-10 shadow-2xl">
-        
-        <!-- Contenedor de Libros -->
-        <div class="pointer-events-none absolute -left-28 top-1/2 z-20 w-[350px] -translate-y-1/2 sm:-left-36 sm:w-[435px]">
-          <div class="relative w-full">
-            
-            <!-- Contraportada (Trasera) -->
-            <div class="absolute left-0 -top-12 w-[72%] rotate-[10deg] drop-shadow-xl">
-              <Image 
-                src={liderazgoTrasera} 
-                alt="Liderazgo Bíblico Trasera" 
-                class="h-auto w-full object-contain" 
-                width={480} 
-              />
+              <!-- Portada Principal -->
+              <div class={`relative z-10 drop-shadow-2xl ${libro.frenteClases}`}>
+                <Image 
+                  src={libro.imagenFrente} 
+                  alt={libro.altFrente} 
+                  class="h-auto w-full object-contain" 
+                  width={480} 
+                  format="webp"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="ml-auto flex h-full w-[58%] flex-col justify-between pl-1 text-left sm:w-[55%] sm:pl-2">
+            <div class="space-y-2 pt-1 sm:space-y-4 sm:pt-4">
+              <h2 class="font-display text-lg font-black leading-tight tracking-tight text-slate-900 min-[400px]:text-xl sm:text-3xl">
+                {libro.titulo[0]}<br />{libro.titulo[1]}
+              </h2>
+              <p class="text-[10px] font-medium leading-relaxed text-slate-600 min-[400px]:text-[11px] sm:text-sm">
+                {libro.descripcion}
+              </p>
             </div>
 
-            <!-- Portada Principal (Frente) -->
-            <div class="relative z-10 w-[82%] translate-x-12 translate-y-8 rotate-0 drop-shadow-2xl">
-              <Image 
-                src={liderazgoFrente} 
-                alt="Liderazgo Bíblico Frente" 
-                class="h-auto w-full object-contain" 
-                width={480} 
-              />
+            <div class="pb-1 sm:pb-2">
+              <a 
+                href={libro.linkAmazon} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label={`Comprar ${libro.titulo.join(" ")} en Amazon`}
+                class="inline-flex items-center rounded-xl bg-[#0F172A] px-5 py-2 text-white shadow-md transition-colors hover:bg-black sm:rounded-2xl sm:px-8 sm:py-3"
+              >
+                <span class="text-xs font-bold tracking-wide sm:text-base">amazon</span>
+              </a>
             </div>
-
-          </div>
-        </div>
-
-        <!-- Contenido -->
-        <div class="ml-auto flex h-full w-[55%] flex-col justify-between pl-2 text-left">
-          <div class="space-y-4 pt-4">
-            <!-- Título con Satoshi mediante font-display -->
-            <h2 class="font-display text-2xl font-black leading-tight tracking-tight text-slate-900 sm:text-3xl">
-              Liderazgo<br />Bíblico
-            </h2>
-            <p class="text-xs font-medium leading-relaxed text-slate-600 sm:text-sm">
-              Manual práctico para líderes, gerentes, miembros de grupos de trabajo, pastores, directores y mentores.
-            </p>
           </div>
 
-          <div class="pb-2">
-            <a 
-              href="https://www.amazon.com/dp/B0DHQNWF7M" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="inline-flex items-center rounded-2xl bg-[#0F172A] px-8 py-3 text-white shadow-md transition-colors hover:bg-black"
-            >
-              <span class="text-base font-bold tracking-wide">amazon</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ═══ TARJETA 2: DESCUBRIENDO GÉNESIS ═══ -->
-      <div class="relative flex aspect-square w-full max-w-[430px] flex-col justify-between rounded-[3rem] bg-[#E5E5E5] p-8 sm:p-10 shadow-2xl">
-        
-        <!-- Contenedor de Libros -->
-        <div class="pointer-events-none absolute -left-24 top-1/2 z-20 w-[350px] -translate-y-1/2 sm:-left-32 sm:w-[435px]">
-          <div class="relative w-full">
-            
-            <!-- Contraportada (Trasera) -->
-            <div class="absolute -left-5 -top-24 w-[72%] rotate-[7deg] drop-shadow-xl">
-              <Image 
-                src={genesisTrasera} 
-                alt="Descubriendo Génesis Trasera" 
-                class="h-auto w-full object-contain" 
-                width={480} 
-              />
-            </div>
-
-            <!-- Portada Principal (Frente) -->
-            <div class="relative z-10 w-[74%] translate-x-8 translate-y-6 rotate-[-8deg] drop-shadow-2xl">
-              <Image 
-                src={genesisFrente} 
-                alt="Descubriendo Génesis Frente" 
-                class="h-auto w-full object-contain" 
-                width={480} 
-              />
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Contenido -->
-        <div class="ml-auto flex h-full w-[55%] flex-col justify-between pl-2 text-left">
-          <div class="space-y-3 pt-2">
-            <!-- Título con Satoshi mediante font-display -->
-            <h2 class="font-display text-2xl font-black leading-tight tracking-tight text-slate-900 sm:text-3xl">
-              Descubriendo<br />Génesis
-            </h2>
-            <p class="text-[11px] font-medium leading-relaxed text-slate-600 sm:text-xs">
-              Libro de estudio profundo del Génesis con más de 150 revelaciones que confirman hechos especiales y desconocidos de los manuscritos en hebreo y arameo, con profunda traducción e investigación de los rollos del mar muerto.
-            </p>
-          </div>
-
-          <div class="pb-2">
-            <a 
-              href="https://www.amazon.com/dp/B0DHQNWF7M" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="inline-flex items-center rounded-2xl bg-[#0F172A] px-8 py-3 text-white shadow-md transition-colors hover:bg-black"
-            >
-              <span class="text-base font-bold tracking-wide">amazon</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
+        </article>
+      ))}
     </div>
   </div>
 </section>
