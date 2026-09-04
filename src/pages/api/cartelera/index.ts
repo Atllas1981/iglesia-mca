@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
 import { isAuthorized } from '../../../lib/auth';
 
 export const prerender = false;
@@ -12,8 +11,9 @@ interface Slide {
   active: boolean;
 }
 
-export const GET: APIRoute = async () => {
-  const KV = env.KV;
+export const GET: APIRoute = async ({ locals }) => {
+  const env = (locals as any)?.runtime?.env;
+  const KV = env?.KV;
 
   if (!KV) {
     return new Response(JSON.stringify({ error: 'El binding de KV no está configurado' }), {
@@ -37,16 +37,17 @@ export const GET: APIRoute = async () => {
   }
 };
 
-export const POST: APIRoute = async ({ request }) => {
-  if (!isAuthorized(request)) {
+export const POST: APIRoute = async ({ request, locals }) => {
+  const env = (locals as any)?.runtime?.env;
+  if (!isAuthorized(request, env)) {
     return new Response(JSON.stringify({ error: 'No autorizado' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const KV = env.KV;
-  const R2 = env.R2;
+  const KV = env?.KV;
+  const R2 = env?.R2;
 
   if (!KV) {
     return new Response(JSON.stringify({ error: 'El binding de KV no está configurado' }), {

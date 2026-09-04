@@ -1,15 +1,15 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, locals }) => {
+  const env = (locals as any)?.runtime?.env;
   const { filename } = params;
   if (!filename) {
     return new Response('Falta el nombre del archivo', { status: 400 });
   }
 
-  const R2 = env.R2;
+  const R2 = env?.R2;
 
   if (!R2) {
     return new Response('El binding de R2 no está configurado', { status: 500 });

@@ -40,75 +40,108 @@ const bancosBreB = [
 ];
 ---
 
-<section id="donations" class="py-24 bg-slate-50 relative overflow-hidden font-inter text-slate-900">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <h2 class="font-montserrat text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Siembra en nuestro ministerio</h2>
-    <p class="text-slate-600 mb-12 max-w-2xl mx-auto text-lg italic">"Cada uno debe dar según lo que haya decidido en su corazón..."</p>
+<section id="donations" class="relative bg-white pt-8 pb-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
-    <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 max-w-2xl mx-auto p-6 relative z-10">
-      <div class="flex flex-col gap-2 mb-10">
-        <button id="btn-colombia" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-[#0d2137] text-white shadow-lg translate-y-[-2px]">Nacional (Colombia)</button>
-        <button id="btn-internacional" class="w-full py-4 rounded-full font-bold text-lg transition-all bg-white text-slate-400 border-2 border-slate-100 hover:bg-slate-50">Internacional</button>
+    <!-- Encabezado centrado -->
+    <div class="flex items-center justify-center gap-3 mb-8">
+      <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#F5ECCB] border border-[#E8DAAA] flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-[#C59E3F]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Corazón -->
+          <path d="M12 4.2C10.6 2.8 8.2 3.2 7.2 4.7C6.1 6.4 7.4 8.7 12 11.2C16.6 8.7 17.9 6.4 16.8 4.7C15.8 3.2 13.4 2.8 12 4.2Z" fill="#C59E3F" stroke="#C59E3F" />
+          <!-- Mano extendida -->
+          <path d="M3 15h3.8c.6 0 1.2.3 1.6.7l2.1 2.5c.4.5 1 .8 1.7.8h4.3c1.1 0 2-.9 2-2 0-.4-.1-.8-.4-1.1l-2.1-2.4c-.4-.4-1-.6-1.5-.6H11" />
+          <path d="M3 18.5h3.5" />
+        </svg>
       </div>
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Apoya este ministerio</h2>
+    </div>
 
-      <div id="content-colombia" class="block animate-fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-2 pb-6">
-          <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
-            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Escanear QR</p>
-            <div class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
-              <img src={qrImage.src} alt="QR Pago" class="w-44 h-44 object-contain" />
-            </div>
+    <!-- Tabs toggle (Stacked vertical pills) -->
+    <div class="flex flex-col items-center gap-3 mb-10">
+      <button id="btn-colombia" class="w-72 sm:w-80 py-3 rounded-full font-bold text-base transition-all bg-[#0e1826] text-white shadow-sm hover:brightness-110 active:scale-95">Nacional (Colombia)</button>
+      <button id="btn-internacional" class="w-72 sm:w-80 py-3 rounded-full font-bold text-base transition-all bg-white text-[#0e1826] border-2 border-[#0e1826] hover:bg-slate-50 active:scale-95">Internacional</button>
+    </div>
+
+    <!-- Contenido: Nacional -->
+    <div id="content-colombia" class="block animate-fade-in">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 max-w-3xl mx-auto">
+
+        <!-- QR -->
+        <div class="flex flex-col items-center">
+          <div class="p-2 bg-white rounded-2xl">
+            <img src={qrImage.src} alt="QR Pago" class="w-64 h-64 sm:w-72 sm:h-72 object-contain" />
           </div>
+          <p class="text-sm sm:text-base font-normal text-slate-700 mt-3 text-center max-w-xs">Escanéa este código desde la app de tu banco</p>
+        </div>
 
-          <div class="flex flex-col gap-4">
-            <div id="trigger-breb" class="bg-[#1a5f7a] rounded-2xl overflow-hidden cursor-pointer hover:brightness-110 active:scale-95 transition-all shadow-md">
-              <div class="py-2 px-4 text-white text-[11px] font-bold text-left uppercase tracking-tight opacity-90">Transfiere con tu <span class="underline">Llave Bre-B</span></div>
-              <div class="bg-[#f0f9ff] m-1 rounded-xl flex items-center justify-between p-1 pl-4">
-                <span class="font-mono font-bold text-slate-800 text-lg tracking-wider">009 180 0969</span>
-                <div class="bg-[#1a5f7a] text-white p-3 rounded-lg">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                </div>
-              </div>
+        <!-- Opciones bancarias (Píldoras) -->
+        <div class="flex flex-col items-center gap-4 w-full md:w-auto">
+          <!-- Bancolombia -->
+          <button id="btn-bancolombia" class="w-72 sm:w-80 rounded-full flex items-center justify-between bg-[#FEDA00] hover:brightness-95 active:scale-95 transition-all shadow-md px-4 py-3 cursor-pointer">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white shrink-0 overflow-hidden shadow-sm p-1.5 ml-1">
+              <img src={logoBancolombia.src} class="w-full h-full object-contain" />
             </div>
+            <div class="text-right pr-4">
+              <p class="font-black text-slate-900 text-lg leading-tight tracking-wide">79595061933</p>
+              <p class="text-xs text-slate-800 font-medium mt-0.5">Cuenta de ahorros</p>
+            </div>
+          </button>
 
-            <button id="btn-nequi" class="w-full bg-[#700e70] hover:bg-[#5a0b5a] text-white rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
-              <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center mr-4 p-1.5 shadow-sm shrink-0"><img src={logoNequi.src} class="w-full h-full object-contain" /></div>
-              <div class="text-left"><p class="font-bold text-lg leading-none">Dona con Nequi</p><p class="text-[10px] opacity-70 uppercase font-bold mt-1 tracking-wider">(Abre la app)</p></div>
-            </button>
+          <!-- Nequi -->
+          <button id="btn-nequi" class="w-72 sm:w-80 rounded-full flex items-center justify-between bg-[#200020] hover:brightness-125 active:scale-95 transition-all shadow-md px-4 py-3 cursor-pointer">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white shrink-0 overflow-hidden shadow-sm p-1.5 ml-1">
+              <img src={logoNequi.src} class="w-full h-full object-contain" />
+            </div>
+            <div class="text-right pr-4 flex-1">
+              <p class="font-black text-white text-lg tracking-wide">79595061933</p>
+            </div>
+          </button>
 
-            <button id="btn-bancolombia" class="w-full bg-[#fdda24] hover:bg-[#eecb10] text-slate-900 rounded-full py-4 px-6 flex items-center shadow-lg active:scale-95 transition-all">
-              <div class="w-11 h-11 rounded-full flex items-center justify-center mr-4 p-2 shrink-0 shadow-sm"><img src={logoBancolombia.src} class="w-full h-full object-contain" /></div>
-              <div class="text-left"><p class="font-bold text-lg leading-none">Dona con Bancolombia</p><p class="text-[10px] opacity-60 uppercase font-bold mt-1 tracking-wider">(Copia cuenta)</p></div>
-            </button>
+          <!-- Bre-B -->
+          <div id="trigger-breb" class="w-72 sm:w-80 rounded-full flex items-center justify-between bg-[#E5E9EC] hover:bg-[#dbe0e5] active:scale-95 transition-all shadow-md cursor-pointer px-4 py-3 border border-slate-200">
+            <div class="shrink-0 pl-3">
+              <img src={logoBreb.src} alt="Bre-B" class="h-8 w-auto object-contain" />
+            </div>
+            <div class="text-right pr-4 flex-1">
+              <p class="font-black text-slate-900 text-lg tracking-wide">0091800969</p>
+            </div>
           </div>
         </div>
       </div>
-      
-      <div id="content-internacional" class="hidden animate-fade-in">
-        <div class="flex flex-col gap-4 max-w-2xl mx-auto py-8">
-            <button id="btn-paypal" class="w-full bg-[#0070ba] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
-                <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoPaypal.src} class="w-full h-full object-cover scale-110" /></div>
-                <p class="font-bold text-lg">Donar con PayPal</p>
-            </button>
+    </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-4">
-              <div class="hidden md:flex flex-col items-center border-r border-slate-100 pr-8">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Escanear Binance</p>
-                <div class="p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
-                  <img src={qrBinance.src} alt="QR Binance" class="w-44 h-44 object-contain" />
-                </div>
-              </div>
+    <!-- Contenido: Internacional -->
+    <div id="content-internacional" class="hidden animate-fade-in">
+      <div class="flex flex-col items-center gap-6 max-w-3xl mx-auto py-2">
+        <button id="btn-paypal" class="w-72 sm:w-80 bg-[#0070ba] text-white rounded-full py-3.5 px-6 flex items-center justify-center active:scale-95 transition-all shadow-md gap-4">
+          <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden shrink-0 p-1">
+            <img src={logoPaypal.src} class="w-full h-full object-contain" />
+          </div>
+          <p class="font-black text-base">Donar con PayPal</p>
+        </button>
 
-              <button id="btn-binance" class="w-full bg-[#1e2329] text-white rounded-full py-4 px-6 flex items-center active:scale-95 transition-all shadow-md">
-                  <div class="w-11 h-11 bg-[#f0b90b] rounded-full flex items-center justify-center mr-4 overflow-hidden shrink-0"><img src={logoBinance.src} class="w-full h-full object-cover scale-110" /></div>
-                  <p class="font-bold text-lg">Dona con Binance Pay</p>
-              </button>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 w-full">
+          <div class="flex flex-col items-center">
+            <div class="p-2 bg-white rounded-2xl">
+              <img src={qrBinance.src} alt="QR Binance" class="w-64 h-64 sm:w-72 sm:h-72 object-contain" />
             </div>
+            <p class="text-sm sm:text-base font-normal text-slate-700 mt-3 text-center max-w-xs">Escanear QR de Binance</p>
+          </div>
+          <div class="flex justify-center">
+            <button id="btn-binance" class="w-72 sm:w-80 bg-[#1e2329] text-white rounded-full py-3.5 px-6 flex items-center justify-center active:scale-95 transition-all shadow-md gap-4">
+              <div class="w-10 h-10 bg-[#f0b90b] rounded-full flex items-center justify-center overflow-hidden shrink-0 p-1">
+                <img src={logoBinance.src} class="w-full h-full object-contain" />
+              </div>
+              <p class="font-black text-base">Dona con Binance Pay</p>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Modales -->
   <div id="modal-bancolombia" class="fixed inset-0 z-[100] grid place-items-center bg-slate-900/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-6">
     <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-sm relative text-center scale-95 transition-transform duration-300 shadow-2xl">
       <button id="close-modal-banco" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600 font-bold text-3xl">×</button>
@@ -152,6 +185,7 @@ const bancosBreB = [
 
   <div id="toast-msg" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-3 rounded-full text-sm font-bold opacity-0 transition-all pointer-events-none z-[200] shadow-2xl translate-y-4">¡Copiado!</div>
 </section>
+
 
 <style>
   @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -236,8 +270,8 @@ const bancosBreB = [
   const cI = document.getElementById("content-internacional");
 
   function setTab(isInt) {
-    const activeClass = "w-full py-4 rounded-full font-bold text-lg bg-[#0d2137] text-white shadow-lg translate-y-[-2px] transition-all";
-    const inactiveClass = "w-full py-4 rounded-full font-bold text-lg bg-white text-slate-400 border-2 border-slate-100 transition-all";
+    const activeClass = "w-72 sm:w-80 py-3 rounded-full font-bold text-base transition-all bg-[#0e1826] text-white shadow-sm hover:brightness-110 active:scale-95";
+    const inactiveClass = "w-72 sm:w-80 py-3 rounded-full font-bold text-base transition-all bg-white text-[#0e1826] border-2 border-[#0e1826] hover:bg-slate-50 active:scale-95";
     if (isInt) {
       bI.className = activeClass; bC.className = inactiveClass;
       cC?.classList.add("hidden"); cI?.classList.remove("hidden");

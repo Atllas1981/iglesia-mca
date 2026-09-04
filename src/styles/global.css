@@ -2,18 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tus variables personalizadas para la v3/Astro */
+/* =============================================
+   SISTEMA DE DISEÑO — TOKENS TIPOGRÁFICOS
+   ============================================= */
+
 :root {
-  --font-montserrat: 'Montserrat', sans-serif;
-  --font-inter: 'Inter', sans-serif;
+  /* Fuente global: Open Sauce Sans (interfaz, cuerpo, UI) */
+  --font-sans: 'Open Sauce Sans', sans-serif;
+
+  /* Fuente destacada: Satoshi (headings, hero, componentes clave) */
+  --font-display: 'Satoshi', sans-serif;
+
+  /* Colores de marca */
   --color-mca-blue: #0b1f3a;
   --color-mca-gold: #d4af37;
+  --color-mca-primary: #0c2243; /* Color institucional primario */
 }
 
+/* Fuente base: aplica Open Sauce Sans a toda la interfaz */
 body {
-  font-family: var(--font-inter);
+  font-family: var(--font-sans);
 }
 
-h1, h2, h3, h4, h5, h6, .font-title {
-  font-family: var(--font-montserrat);
+/* Clase de utilidad manual para aplicar Satoshi donde se requiera */
+.font-display {
+  font-family: var(--font-display);
 }

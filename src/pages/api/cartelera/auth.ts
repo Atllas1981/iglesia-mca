@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    const env = (locals as any)?.runtime?.env;
     const { password } = await request.json();
-    const adminPassword = (env as any).ADMIN_PASSWORD || 'admin_mca_pass_2026';
+    const adminPassword = env?.ADMIN_PASSWORD || 'admin_mca_pass_2026';
 
     if (password === adminPassword) {
       // Create a secure cookie setting

@@ -5,7 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://iglesia-mca.pages.dev',
-  output: 'server', // <--- AÑADE ESTA LÍNEA
+  output: 'server',
   image: {
     service: passthroughImageService()
   },
@@ -16,4 +16,17 @@ export default defineConfig({
       enabled: true,
     },
   }),
+  vite: {
+    optimizeDeps: {
+      exclude: ['cloudflare:workers']
+    },
+    ssr: {
+      external: ['cloudflare:workers']
+    },
+    build: {
+      rollupOptions: {
+        external: ['cloudflare:workers']
+      }
+    }
+  }
 });

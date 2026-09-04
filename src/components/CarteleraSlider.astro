@@ -1,6 +1,5 @@
 ---
 // src/components/CarteleraSlider.astro
-import { env } from 'cloudflare:workers';
 
 interface Slide {
   id: string;
@@ -13,8 +12,8 @@ interface Slide {
 let slides: { imageUrl: string; title: string }[] = [];
 
 try {
-  const runtime = Astro.locals?.runtime;
-  const KV = (env as any)?.KV || (runtime as any)?.env?.KV;
+  const runtime = (Astro.locals as any)?.runtime;
+  const KV = runtime?.env?.KV;
 
   if (KV) {
     const data = await KV.get('cartelera_slides');
@@ -31,41 +30,73 @@ try {
 const { title = "Cartelera" } = Astro.props;
 ---
 
-<section class="py-20 bg-slate-50 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 leading-none">
-      {title}
-    </h2>
+<section class="w-full bg-white py-8 md:py-12">
+  <div class="w-full relative">
+    
+    <!-- Encabezado con icono y botones de navegación -->
+    <div class="flex items-center justify-between md:justify-start gap-4 mb-8 md:mb-10 px-4 sm:px-6 md:px-12 max-w-6xl mx-auto">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#F5ECCB] border border-[#E8DAAA] flex items-center justify-center text-[#C59E3F] shadow-sm flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6 text-[#C59E3F]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M11 5.882l5 3.118a1.76 1.76 0 010 3L11 15.118" />
+          </svg>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          {title}
+        </h2>
+      </div>
 
-    <div class="hidden md:flex gap-3 items-center pb-1">
-      <button class="btn-left h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Anterior">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button class="btn-right h-12 w-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer" aria-label="Siguiente">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+      <!-- Botones de navegación tipo píldora / círculo gris -->
+      <div class="flex items-center gap-2 ml-2">
+        <button class="btn-left w-9 h-9 md:w-10 md:h-10 rounded-full bg-slate-300/80 hover:bg-slate-400/80 flex items-center justify-center text-slate-800 transition-colors cursor-pointer shadow-sm" aria-label="Anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button class="btn-right w-9 h-9 md:w-10 md:h-10 rounded-full bg-slate-300/80 hover:bg-slate-400/80 flex items-center justify-center text-slate-800 transition-colors cursor-pointer shadow-sm" aria-label="Siguiente">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="cartelera-container w-full relative">
-    <div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-16 pt-4 no-scrollbar">
-      {slides.map((slide: any) => (
-        <article class="relative flex-none w-[70%] sm:w-[45%] md:w-[30%] lg:w-[22%] aspect-[3/4] lg:aspect-[4/5] snap-start rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 group cursor-pointer bg-slate-200 slider-card" data-image-url={slide.imageUrl} aria-label={slide.title || "Ver diapositiva"}>
-          <figure class="w-full h-full overflow-hidden m-0">
-            <img
-              src={slide.imageUrl}
-              alt={slide.title || "Imagen de anuncio"}
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
-            />
-          </figure>
-        </article>
-      ))}
+    <!-- Contenedor del Slider / Posters -->
+    <div class="cartelera-container w-full relative">
+      <div class="cartelera-slider flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 scroll-pl-0 no-scrollbar py-2">
+        {slides.length > 0 ? (
+          slides.map((slide: any) => (
+            <article 
+              class="relative flex-none w-[75%] sm:w-[48%] md:w-[23%] aspect-[9/16] snap-start rounded-[2rem] md:rounded-[2.2rem] overflow-hidden shadow-lg hover:shadow-2xl border border-slate-100 group cursor-pointer bg-slate-100 slider-card transition-all duration-300" 
+              data-image-url={slide.imageUrl} 
+              aria-label={slide.title || "Ver anuncio"}
+            >
+              <figure class="w-full h-full overflow-hidden m-0">
+                <img
+                  src={slide.imageUrl}
+                  alt={slide.title || "Imagen de anuncio"}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
+                />
+              </figure>
+            </article>
+          ))
+        ) : (
+          [1, 2, 3, 4].map((item) => (
+            <article 
+              class="relative flex-none w-[75%] sm:w-[48%] md:w-[23%] aspect-[9/16] snap-start rounded-[2rem] md:rounded-[2.2rem] overflow-hidden shadow-lg border border-slate-100 bg-slate-100 flex items-center justify-center p-4 text-center text-slate-400"
+            >
+              <div class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-xs font-semibold">Anuncio MCA #{item}</span>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
     </div>
   </div>
 </section>
@@ -86,9 +117,9 @@ const { title = "Cartelera" } = Astro.props;
     const containers = document.querySelectorAll('.cartelera-container');
     containers.forEach((container) => {
       const slider = container.querySelector('.cartelera-slider');
-      const navContainer = container.parentElement;
-      const btnLeft = navContainer ? navContainer.querySelector('.btn-left') : null;
-      const btnRight = navContainer ? navContainer.querySelector('.btn-right') : null;
+      const parentCard = container.closest('section') || container.parentElement;
+      const btnLeft = parentCard ? parentCard.querySelector('.btn-left') : null;
+      const btnRight = parentCard ? parentCard.querySelector('.btn-right') : null;
 
       if (!slider) return;
 

@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import LiveCounter from "../components/LiveCounter.jsx";
@@ -11,10 +12,12 @@ import CarteleraSlider from "../components/CarteleraSlider.astro";
 
 <Layout>
     <main>
-        <Hero />
+        <div class="bg-[#0c2243]">
+            <Hero />
 
-        <div class="relative z-50 -mt-20">
-            <LiveCounter client:only="react" />
+            <div class="relative z-30 -mt-20 sm:-mt-24 md:-mt-32 px-4 sm:px-6 max-w-6xl mx-auto pb-12">
+                <LiveCounter client:only="react" />
+            </div>
         </div>
 
         <!-- Integración del nuevo componente de Cartelera  -->

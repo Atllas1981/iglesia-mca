@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Youtube, CalendarDays, PlayCircle, Radio, AlertCircle } from 'lucide-react';
+import { Youtube, CalendarDays, Radio, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function LiveCounter() {
     const [isLive, setIsLive] = useState(false);
@@ -47,11 +47,11 @@ export default function LiveCounter() {
         target.setMilliseconds(0); target.setSeconds(0);
         let info = '';
 
-        if (day === 0 && totalSeconds < 34200) { target.setHours(9, 30, 0); info = 'Hoy 9:30 AM'; }
-        else if (day === 2 && totalSeconds < 39600) { target.setHours(11, 0, 0); info = 'Hoy 11:00 AM'; }
-        else if (day === 4 && totalSeconds < 68400) { target.setHours(19, 0, 0); info = 'Hoy 7:00 PM'; }
+        if (day === 0 && totalSeconds < 34200) { target.setHours(9, 30, 0); info = 'Domingo 9:30 am'; }
+        else if (day === 2 && totalSeconds < 39600) { target.setHours(11, 0, 0); info = 'Martes 11:00 am'; }
+        else if (day === 4 && totalSeconds < 68400) { target.setHours(19, 0, 0); info = 'Jueves 7:00 pm'; }
         else {
-            const schedule = [{d:0,h:9,m:30,t:'Domingo 9:30 AM'},{d:2,h:11,m:0,t:'Martes 11:00 AM'},{d:4,h:19,m:0,t:'Jueves 7:00 PM'}];
+            const schedule = [{d:0,h:9,m:30,t:'Domingo 9:30 am'},{d:2,h:11,m:0,t:'Martes 11:00 am'},{d:4,h:19,m:0,t:'Jueves 7:00 pm'}];
             let next = schedule.find(s => s.d > day) || schedule[0];
             let diff = (next.d - day + 7) % 7;
             if (diff === 0 && totalSeconds >= (next.h*3600 + next.m*60)) diff = 7;
@@ -74,111 +74,148 @@ export default function LiveCounter() {
 
     if (!isMounted) return null;
 
-    return (
-        <section className="w-full max-w-7xl mx-auto py-12 px-4">
-            <div className="bg-white rounded-[3rem] shadow-2xl border border-slate-100 flex flex-col lg:flex-row overflow-hidden min-h-[600px]">
-                
-                {/* Lado Izquierdo: Contador (35% de ancho) */}
-                <div className="lg:w-[35%] p-8 lg:p-12 bg-slate-50/50 flex flex-col items-center justify-center text-center border-b lg:border-b-0 lg:border-r border-slate-100">
-                    <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">
-                        <CalendarDays className="w-4 h-4 text-amber-500" /> Próximo Servicio
-                    </span>
-                    <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-10 tracking-tight leading-tight">{nextServiceStr}</h2>
+    const displayVideos = latestVideos.length > 0 ? latestVideos.slice(0, 3) : [
+        { id: '1', title: 'Reunión Principal MCA', link: 'https://www.youtube.com/@PastorOmarSaiz', thumbnail: '' },
+        { id: '2', title: 'Mensaje Semanal MCA', link: 'https://www.youtube.com/@PastorOmarSaiz', thumbnail: '' },
+        { id: '3', title: 'Enseñanza MCA', link: 'https://www.youtube.com/@PastorOmarSaiz', thumbnail: '' },
+    ];
 
-                    {isLive ? (
-                        <div className="w-full mb-10 rounded-3xl p-[2px] bg-gradient-to-r from-red-600 via-orange-500 to-red-600 animate-pulse">
-                            <div className="bg-white rounded-[calc(1.5rem+2px)] p-8 flex flex-col items-center">
-                                <Radio className="w-12 h-12 text-red-600 mb-3" />
-                                <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight">¡En Vivo!</h3>
+    return (
+        <div className="w-full bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-6 sm:p-8 md:p-12 shadow-2xl border border-slate-100 relative">
+            {/* Estructura Visual Superior: Encabezado Centrado */}
+            <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
+                <div className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#F5ECCB] border border-[#E8DAAA] flex items-center justify-center text-[#C59E3F] shadow-sm flex-shrink-0">
+                    <Youtube className="w-5 h-5 md:w-6 md:h-6 text-[#C59E3F]" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Novedades en el canal
+                </h2>
+            </div>
+
+            {/* Grid de 3 miniaturas de YouTube con flechas laterales */}
+            <div className="relative px-2 sm:px-6">
+                {/* Flecha izquierda */}
+                <button 
+                    type="button"
+                    aria-label="Anterior"
+                    className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-10 text-slate-800 hover:text-black transition-colors"
+                >
+                    <ChevronLeft className="w-7 h-7 stroke-[2.5]" />
+                </button>
+
+                {/* Grid 3 miniaturas */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center">
+                    {isLoading ? (
+                        <>
+                            <div className="p-2.5 bg-[#B2CBD9] rounded-[30px]">
+                                <div className="aspect-video bg-slate-200/80 animate-pulse rounded-[22px]" />
                             </div>
+                            <div className="aspect-video bg-slate-200 animate-pulse rounded-[26px]" />
+                            <div className="aspect-video bg-slate-200 animate-pulse rounded-[26px]" />
+                        </>
+                    ) : apiError && latestVideos.length === 0 ? (
+                        <div className="col-span-full flex flex-col items-center justify-center py-12 text-slate-400 border-2 border-dashed border-slate-200 rounded-[2.5rem]">
+                            <AlertCircle className="w-10 h-10 mb-2 opacity-30 text-amber-500" />
+                            <p className="text-sm font-medium">Contenido no disponible temporalmente</p>
                         </div>
                     ) : (
-                        <div className="flex gap-4 mb-10">
-                            {[{l:'HRS',v:timeLeft.hours},{l:'MIN',v:timeLeft.minutes},{l:'SEG',v:timeLeft.seconds}].map(t => (
-                                <div key={t.l} className="text-center">
-                                    <div className="w-20 h-20 sm:w-24 bg-white rounded-[2rem] shadow-sm border border-slate-200 flex items-center justify-center text-3xl font-black text-slate-900 mb-2">
-                                        {t.v.toString().padStart(2, '0')}
+                        displayVideos.map((video, index) => {
+                            const isFirst = index === 0;
+                            const cardContent = (
+                                <a 
+                                    key={video.id || index}
+                                    href={video.link}
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="block w-full h-full group"
+                                >
+                                    <div className={`relative aspect-video w-full overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 ${
+                                        isFirst ? 'rounded-[20px]' : 'rounded-[26px]'
+                                    } bg-slate-100`}>
+                                        {video.thumbnail ? (
+                                            <img 
+                                                src={video.thumbnail} 
+                                                alt={video.title} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-slate-800 flex items-center justify-center p-4 text-center">
+                                                <span className="text-white text-xs font-semibold">{video.title}</span>
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
                                     </div>
-                                    <span className="text-[10px] font-bold text-slate-400 tracking-widest">{t.l}</span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                                </a>
+                            );
 
-                    <a href="https://www.youtube.com/@PastorOmarSaiz" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-3 bg-slate-950 text-white py-5 rounded-2xl hover:bg-red-600 transition-all font-bold text-xs uppercase tracking-widest shadow-lg group">
-                        <Youtube className="w-5 h-5 group-hover:scale-110 transition-transform" /> Ver canal oficial
-                    </a>
+                            if (isFirst) {
+                                return (
+                                    <div key={video.id || index} className="p-2.5 bg-[#B2CBD9] rounded-[30px] shadow-sm">
+                                        {cardContent}
+                                    </div>
+                                );
+                            }
+
+                            return cardContent;
+                        })
+                    )}
                 </div>
 
-                {/* Lado Derecho: Videos (65% de ancho) */}
-                <div className="lg:w-[65%] p-8 lg:p-12 flex flex-col">
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h3 className="text-3xl font-black text-slate-900 tracking-tight">Predicaciones Recientes</h3>
-                            <p className="text-slate-500 text-sm font-medium italic">Edificando tu fe cada semana</p>
+                {/* Flecha derecha */}
+                <button 
+                    type="button"
+                    aria-label="Siguiente"
+                    className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-10 text-slate-800 hover:text-black transition-colors"
+                >
+                    <ChevronRight className="w-7 h-7 stroke-[2.5]" />
+                </button>
+            </div>
+
+            {/* Estructura Visual Inferior: Próxima reunión */}
+            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-14 lg:gap-20">
+                {/* Texto del horario con icono de calendario a la izquierda */}
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                    <div className="flex items-center gap-2.5 mb-1">
+                        <div className="w-8 h-8 rounded-full bg-[#F5ECCB] border border-[#E8DAAA] flex items-center justify-center text-[#C59E3F] shadow-sm flex-shrink-0">
+                            <CalendarDays className="w-4 h-4 text-[#C59E3F]" />
                         </div>
+                        <span className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+                            Próxima reunión
+                        </span>
                     </div>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                        {nextServiceStr || 'Domingo 9:30 am'}
+                    </h3>
+                </div>
 
-                    {/* Grid Dinámico - El primer video es más grande */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                        {isLoading ? (
-                            <div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                                <div className="md:row-span-2 aspect-video md:aspect-auto bg-slate-100 animate-pulse rounded-[2.5rem]" />
-                                <div className="aspect-video bg-slate-100 animate-pulse rounded-[2.5rem]" />
-                                <div className="aspect-video bg-slate-100 animate-pulse rounded-[2.5rem]" />
+                {/* Contenedor tipo píldora beige con contador en tarjetas blancas */}
+                <div className="bg-[#EFE5C9] rounded-full p-3 px-6 md:p-4 md:px-8 shadow-sm flex items-center gap-3 md:gap-4">
+                    {isLive ? (
+                        <div className="px-6 py-3 bg-white rounded-full flex items-center gap-3 text-red-600 font-extrabold text-base md:text-lg animate-pulse shadow-sm">
+                            <Radio className="w-5 h-5 text-red-600" />
+                            <span>¡EN VIVO AHORA!</span>
+                        </div>
+                    ) : (
+                        [
+                            { label: 'Hrs', value: timeLeft.hours },
+                            { label: 'Min', value: timeLeft.minutes },
+                            { label: 'Seg', value: timeLeft.seconds }
+                        ].map((item) => (
+                            <div 
+                                key={item.label} 
+                                className="bg-white rounded-[20px] md:rounded-[24px] w-16 h-20 md:w-20 md:h-24 shadow-sm flex flex-col items-center justify-center p-2 text-center"
+                            >
+                                <span className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
+                                    {item.value.toString().padStart(2, '0')}
+                                </span>
+                                <span className="text-[11px] md:text-xs font-semibold text-[#8C7A5B] mt-0.5">
+                                    {item.label}
+                                </span>
                             </div>
-                        ) : apiError ? (
-                            <div className="col-span-full flex flex-col items-center justify-center py-16 text-slate-400 border-2 border-dashed border-slate-100 rounded-[3rem]">
-                                <AlertCircle className="w-12 h-12 mb-3 opacity-20" />
-                                <p className="text-sm font-medium">Contenido no disponible en este momento</p>
-                            </div>
-                        ) : (
-                            <>
-                                {/* Video Principal (Grande) */}
-                                {latestVideos[0] && (
-                                    <a href={latestVideos[0].link} target="_blank" rel="noopener noreferrer" 
-                                       className="md:row-span-2 group relative rounded-[2.5rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-slate-100">
-                                        <img src={latestVideos[0].thumbnail} alt={latestVideos[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                                        <div className="absolute inset-0 flex flex-col justify-end p-8">
-                                            <div className="flex items-center gap-3 mb-3">
-                                                <div className="p-3 bg-red-600 rounded-full shadow-lg group-hover:scale-110 transition-transform">
-                                                    <PlayCircle className="w-6 h-6 text-white" />
-                                                </div>
-                                                <span className="text-xs font-black text-white uppercase tracking-[0.2em]">Último mensaje</span>
-                                            </div>
-                                            <p className="text-xl lg:text-2xl text-white font-bold leading-tight line-clamp-3">{latestVideos[0].title}</p>
-                                        </div>
-                                    </a>
-                                )}
-
-                                {/* Videos Secundarios (Pequeños al lado) */}
-                                <div className="grid grid-cols-1 gap-6 md:contents">
-                                    {latestVideos.slice(1, 3).map(video => (
-                                        <a key={video.id} href={video.link} target="_blank" rel="noopener noreferrer" 
-                                           className="group relative rounded-[2rem] overflow-hidden aspect-video shadow-lg hover:shadow-xl transition-all duration-500 bg-slate-100">
-                                            <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                                            <div className="absolute inset-0 flex flex-col justify-end p-6">
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <PlayCircle className="w-4 h-4 text-red-500" />
-                                                    <span className="text-[9px] font-black text-white uppercase tracking-widest">Reproducir</span>
-                                                </div>
-                                                <p className="text-sm lg:text-base text-white font-bold leading-tight line-clamp-2">{video.title}</p>
-                                            </div>
-                                        </a>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                    </div>
-
-                    <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sincronizado con YouTube MCA</p>
-                    </div>
+                        ))
+                    )}
                 </div>
             </div>
-        </section>
+        </div>
     );
 }

@@ -1,18 +1,18 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
 import { isAuthorized } from '../../../lib/auth';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
-  if (!isAuthorized(request)) {
+export const POST: APIRoute = async ({ request, locals }) => {
+  const env = (locals as any)?.runtime?.env;
+  if (!isAuthorized(request, env)) {
     return new Response(JSON.stringify({ error: 'No autorizado' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const R2 = env.R2;
+  const R2 = env?.R2;
   if (!R2) {
     return new Response(JSON.stringify({ error: 'El binding de R2 no está configurado' }), {
       status: 500,
