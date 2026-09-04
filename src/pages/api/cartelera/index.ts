@@ -12,17 +12,17 @@ interface Slide {
 }
 
 export const GET: APIRoute = async ({ locals }) => {
-  const env = (locals as any)?.runtime?.env;
-  const KV = env?.KV;
-
-  if (!KV) {
-    return new Response(JSON.stringify({ error: 'El binding de KV no está configurado' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
   try {
+    const env = (locals as any)?.runtime?.env;
+    const KV = env?.KV;
+
+    if (!KV) {
+      return new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const data = await KV.get('cartelera_slides');
     const slides = data ? JSON.parse(data) : [];
     return new Response(JSON.stringify(slides), {
@@ -30,8 +30,8 @@ export const GET: APIRoute = async ({ locals }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
+    return new Response(JSON.stringify([]), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
