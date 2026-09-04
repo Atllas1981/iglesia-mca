@@ -14,9 +14,10 @@ const libros = [
     imagenTrasera: liderazgoTrasera,
     altFrente: "Portada Liderazgo Bíblico",
     altTrasera: "Contraportada Liderazgo Bíblico",
-    traseraClases: "left-0 -top-6 sm:-top-12 w-[72%] rotate-[10deg]",
-    frenteClases: "w-[82%] translate-x-6 sm:translate-x-12 translate-y-4 sm:translate-y-8 rotate-0",
-    offsetContenedor: "-left-14 sm:-left-28 md:-left-36 w-[210px] min-[400px]:w-[250px] sm:w-[350px] md:w-[435px]"
+    traseraClases: "-left-1 -top-6 w-[72%] rotate-[10deg] sm:left-0 sm:-top-12",
+    frenteClases: "w-[82%] translate-x-5 translate-y-4 rotate-0 sm:translate-x-12 sm:translate-y-8",
+    // Se fijó el ancho en sm:w-[378px] sin escalado extra en md: para no invadir el texto
+    offsetContenedor: "-left-11 w-[195px] min-[380px]:-left-13 min-[380px]:w-[210px] sm:-left-28 sm:w-[378px]"
   },
   {
     titulo: ["Descubriendo", "Génesis"],
@@ -26,18 +27,18 @@ const libros = [
     imagenTrasera: genesisTrasera,
     altFrente: "Portada Descubriendo Génesis",
     altTrasera: "Contraportada Descubriendo Génesis",
-    traseraClases: "-left-3 sm:-left-5 -top-12 sm:-top-24 w-[72%] rotate-[7deg]",
-    frenteClases: "w-[74%] translate-x-4 sm:translate-x-8 translate-y-3 sm:translate-y-6 rotate-[-8deg]",
-    offsetContenedor: "-left-12 sm:-left-24 md:-left-32 w-[210px] min-[400px]:w-[250px] sm:w-[350px] md:w-[435px]"
+    traseraClases: "-left-3 -top-10 w-[72%] rotate-[7deg] sm:-left-5 sm:-top-24",
+    frenteClases: "w-[74%] translate-x-4 translate-y-3 rotate-[-8deg] sm:translate-x-8 sm:translate-y-6",
+    // Se fijó el ancho en sm:w-[378px] sin escalado extra en md:
+    offsetContenedor: "-left-9 w-[195px] min-[380px]:-left-11 min-[380px]:w-[210px] sm:-left-24 sm:w-[378px]"
   }
 ];
 ---
 
-<section class="overflow-x-hidden bg-[#0B132B] px-4 py-16 text-slate-800 sm:px-6 sm:py-28">
+<section class="overflow-x-hidden bg-[#0B132B] px-6 py-16 text-slate-800 sm:px-8 sm:py-28">
   <div class="mx-auto max-w-6xl">
     
-    <!-- Badge Superior -->
-    <div class="mb-14 flex justify-center sm:mb-24">
+    <div class="mb-12 flex justify-center sm:mb-24">
       <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-4 py-1.5 text-slate-200 shadow-sm backdrop-blur sm:gap-2.5 sm:px-5 sm:py-2">
         <svg class="h-3.5 w-3.5 fill-current text-white sm:h-4 sm:w-4" viewBox="0 0 24 24" aria-hidden="true">
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -46,16 +47,13 @@ const libros = [
       </div>
     </div>
 
-    <!-- Grid de Tarjetas -->
-    <div class="grid grid-cols-1 justify-items-center gap-16 sm:gap-28 lg:grid-cols-2 lg:gap-24">
+    <div class="grid grid-cols-1 justify-items-center gap-14 scale-[1.15] -mx-4 sm:gap-28 lg:grid-cols-2 lg:gap-24 sm:scale-100 lg:scale-[1.15] sm:mx-0">
       {libros.map((libro) => (
-        <article class="relative flex aspect-square w-full max-w-[320px] flex-col justify-between rounded-[2rem] bg-[#E5E5E5] p-5 shadow-2xl min-[400px]:max-w-[360px] min-[400px]:p-6 sm:max-w-[430px] sm:rounded-[3rem] sm:p-10">
+        <article class="relative flex aspect-[1/0.92] w-full max-w-[231px] flex-col justify-between rounded-[1.7rem] bg-[#E5E5E5] p-1.5 shadow-2xl min-[380px]:max-w-[247px] min-[380px]:p-2 sm:aspect-square sm:max-w-[400px] sm:rounded-[3rem] sm:p-7">
           
-          <!-- Contenedor de Libros -->
           <div class={`pointer-events-none absolute top-1/2 z-20 -translate-y-1/2 ${libro.offsetContenedor}`}>
             <div class="relative w-full">
               
-              <!-- Contraportada -->
               <div class={`absolute drop-shadow-xl ${libro.traseraClases}`}>
                 <Image 
                   src={libro.imagenTrasera} 
@@ -66,7 +64,6 @@ const libros = [
                 />
               </div>
 
-              <!-- Portada Principal -->
               <div class={`relative z-10 drop-shadow-2xl ${libro.frenteClases}`}>
                 <Image 
                   src={libro.imagenFrente} 
@@ -80,26 +77,25 @@ const libros = [
             </div>
           </div>
 
-          <!-- Contenido -->
-          <div class="ml-auto flex h-full w-[58%] flex-col justify-between pl-1 text-left sm:w-[55%] sm:pl-2">
-            <div class="space-y-2 pt-1 sm:space-y-4 sm:pt-4">
-              <h2 class="font-display text-lg font-black leading-tight tracking-tight text-slate-900 min-[400px]:text-xl sm:text-3xl">
+          <div class="ml-auto flex h-full w-[54%] flex-col justify-center gap-1.5 text-left min-[380px]:gap-2 sm:w-[55%] sm:gap-5 sm:pl-2">
+            <div class="space-y-0.5 sm:space-y-3">
+              <h2 class="font-display text-[15px] font-black leading-tight tracking-tight text-slate-900 min-[380px]:text-[16px] sm:text-3xl">
                 {libro.titulo[0]}<br />{libro.titulo[1]}
               </h2>
-              <p class="text-[10px] font-medium leading-relaxed text-slate-600 min-[400px]:text-[11px] sm:text-sm">
+              <p class="text-[9px] font-medium leading-[1.15] text-slate-600 min-[380px]:text-[9.5px] min-[380px]:leading-tight sm:text-sm sm:leading-relaxed">
                 {libro.descripcion}
               </p>
             </div>
 
-            <div class="pb-1 sm:pb-2">
+            <div>
               <a 
                 href={libro.linkAmazon} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label={`Comprar ${libro.titulo.join(" ")} en Amazon`}
-                class="inline-flex items-center rounded-xl bg-[#0F172A] px-5 py-2 text-white shadow-md transition-colors hover:bg-black sm:rounded-2xl sm:px-8 sm:py-3"
+                class="inline-flex items-center rounded-lg bg-[#0F172A] px-3 py-1 text-white shadow-md transition-colors hover:bg-black min-[380px]:px-3.5 min-[380px]:py-1.5 sm:rounded-2xl sm:px-8 sm:py-3"
               >
-                <span class="text-xs font-bold tracking-wide sm:text-base">amazon</span>
+                <span class="text-[10px] font-bold tracking-wide min-[380px]:text-xs sm:text-base">amazon</span>
               </a>
             </div>
           </div>
