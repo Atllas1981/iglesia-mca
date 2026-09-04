@@ -74,14 +74,19 @@ export default function CarteleraManager() {
   useEffect(() => {
     async function fetchSlides() {
       try {
-        const res = await fetch('/api/cartelera');
-        if (!res.ok) throw new Error('Error al cargar la cartelera');
+        const res = await fetch('/api/cartelera', { credentials: 'same-origin' });
+        if (!res.ok) {
+          let errorText = `HTTP ${res.status}`;
+          try { const d = await res.json(); errorText = d.error || errorText; } catch {}
+          throw new Error(`Error al cargar la cartelera: ${errorText}`);
+        }
         const data = await res.json();
         // Sort explicitly by order
         const sorted = data.sort((a: Slide, b: Slide) => a.order - b.order);
         setSlides(sorted);
       } catch (err: any) {
-        setErrorMessage(err.message);
+        // Mostrar error pero NO bloquear la UI
+        setErrorMessage(err.message || 'Error de conexión al cargar la cartelera');
       } finally {
         setLoading(false);
       }
@@ -119,12 +124,14 @@ export default function CarteleraManager() {
 
         const res = await fetch('/api/cartelera/upload', {
           method: 'POST',
+          credentials: 'same-origin',
           body: formData,
         });
 
         if (!res.ok) {
-          const errData = await res.json();
-          throw new Error(errData.error || 'Error al subir la imagen');
+          let errorText = `HTTP ${res.status}`;
+          try { const errData = await res.json(); errorText = errData.error || errorText; } catch {}
+          throw new Error(errorText);
         }
 
         const data = await res.json();
@@ -205,6 +212,7 @@ export default function CarteleraManager() {
     try {
       const res = await fetch('/api/cartelera', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
