@@ -3,3 +3,11 @@ name = "iglesia-mca"
 compatibility_date = "2024-04-25"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "5d729b13a1d74e378ad0bcab82936cc0"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "mca-r2"
