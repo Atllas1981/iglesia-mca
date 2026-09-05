@@ -3,14 +3,30 @@ import { Image } from "astro:assets";
 import logoMCA from "../assets/logoMCA.svg";
 import heroImage from "../assets/hero1.webp";
 
-const mainNavLinks = [
+// Tipado estricto con TypeScript
+interface NavLink {
+  name: string;
+  href: string;
+}
+
+interface SidebarCategory {
+  title: string;
+  icon: "heart" | "church" | "users" | "help";
+  isDirectLink?: boolean;
+  href?: string;
+  links?: NavLink[];
+}
+
+// Enlaces principales del Header
+const mainNavLinks: NavLink[] = [
   { name: "Nosotros", href: "#nosotros" },
   { name: "Visítanos", href: "#visitanos" },
   { name: "Prédicas", href: "#predicas" },
   { name: "Donaciones", href: "#donaciones" },
 ];
 
-const sidebarCategories = [
+// Estructura del menú lateral
+const sidebarCategories: SidebarCategory[] = [
   {
     title: "Nuevo aquí",
     icon: "heart",
@@ -53,32 +69,38 @@ const sidebarCategories = [
 ---
 
 <section class="relative min-h-screen w-full overflow-hidden bg-[#0c2243]">
-  <!-- Background Image -->
-  <div class="absolute inset-0 z-0 overflow-hidden">
+  <div class="absolute inset-0 z-0 overflow-hidden bg-[#0c2243]">
     <Image
       src={heroImage}
       alt="Fondo Ministerio Como las Águilas"
-      class="h-full w-full object-cover object-center"
+      id="hero-bg-img"
+      class="h-full w-full object-cover object-center opacity-0"
+      style="transition: opacity 0.6s ease-in-out;"
       loading="eager"
       fetchpriority="high"
+      widths={[640, 1024, 1280]}
+      sizes="100vw"
+      format="webp"
+      quality={60}
     />
   </div>
 
-  <!-- Overlays -->
   <div class="absolute inset-0 z-10 bg-[#0c2243]/50 backdrop-blur-[1px]"></div>
   <div class="absolute inset-0 z-10 bg-gradient-to-b from-[#0c2243]/80 via-transparent to-[#0c2243]"></div>
 
-  <!-- Header / Navbar -->
   <header class="relative z-30 w-full border-b border-white/10 bg-[#0c2243]/90 text-white shadow-md backdrop-blur-md">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
       
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2">
-        <img src={logoMCA.src ?? logoMCA} alt="Logo MCA" class="h-10 w-auto object-contain" loading="eager" />
+      <a href="/" class="flex items-center gap-2" aria-label="Inicio - MCA">
+        <img 
+          src={logoMCA.src ?? logoMCA} 
+          alt="Logo MCA" 
+          class="h-10 w-auto object-contain" 
+          loading="eager" 
+        />
       </a>
 
-      <!-- Desktop Links -->
-      <nav class="hidden items-center gap-8 md:flex">
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
         {mainNavLinks.map((link) => (
           <a 
             href={link.href} 
@@ -89,7 +111,6 @@ const sidebarCategories = [
         ))}
       </nav>
 
-      <!-- Toggle Drawer Button (Hamburguesa) -->
       <button 
         id="menu-toggle-btn"
         type="button"
@@ -105,7 +126,6 @@ const sidebarCategories = [
     </div>
   </header>
 
-  <!-- Hero Main Content -->
   <div class="relative z-20 mx-auto flex min-h-[calc(100vh-64px)] max-w-7xl flex-col items-center justify-center px-6 py-12 text-center">
     
     <div class="max-w-3xl animate-fade-down">
@@ -120,7 +140,6 @@ const sidebarCategories = [
       </p>
     </div>
 
-    <!-- Call to Actions -->
     <div class="mt-10 flex w-full max-w-md flex-col gap-4 animate-fade-up sm:flex-row">
       <a 
         href="#predicas" 
@@ -137,7 +156,6 @@ const sidebarCategories = [
     </div>
   </div>
 
-  <!-- Sidebar Drawer & Backdrop -->
   <div id="menu-overlay" class="fixed inset-0 z-40 hidden bg-black/60 backdrop-blur-sm transition-opacity"></div>
 
   <aside 
@@ -145,10 +163,9 @@ const sidebarCategories = [
     role="dialog"
     aria-modal="true"
     aria-label="Menú principal"
-    class="fixed right-0 top-0 z-50 h-full w-80 translate-x-full transform overflow-y-auto border-l border-white/10 bg-[#0c2243] p-6 text-white shadow-2xl transition-transform duration-300 ease-in-out"
+    class="fixed right-0 top-0 z-50 h-[100dvh] w-[85%] max-w-xs translate-x-full transform overflow-y-auto border-l border-white/10 bg-[#0c2243] p-4 text-white shadow-2xl transition-transform duration-300 ease-in-out"
   >
-    <!-- Close Button -->
-    <div class="mb-4 flex items-center justify-end">
+    <div class="mb-2 flex items-center justify-end">
       <button 
         id="menu-close-btn" 
         type="button" 
@@ -161,34 +178,33 @@ const sidebarCategories = [
       </button>
     </div>
 
-    <!-- Navigation Groups -->
-    <div class="space-y-4">
+    <div class="space-y-2.5">
       {sidebarCategories.map((cat) => (
         <div>
           {cat.isDirectLink ? (
             <a 
               href={cat.href} 
-              class="sidebar-link flex items-center gap-3 text-white transition-colors hover:text-amber-400 focus-visible:outline-none"
+              class="sidebar-link flex items-center gap-2.5 text-white transition-colors hover:text-amber-400 focus-visible:outline-none"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a1 1 0 0 1 1.34 0l.5.47" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="m14 10 2.2 2.2a2.17 2.17 0 0 0 3.08 0v0a2.17 2.17 0 0 0 0-3.08L17 7" />
               </svg>
-              <span class="font-display text-2xl font-semibold">{cat.title}</span>
+              <span class="font-display text-lg font-semibold">{cat.title}</span>
             </a>
           ) : (
             <>
-              <div class="mb-3 flex items-center gap-3 text-white">
+              <div class="mb-1 flex items-center gap-2.5 text-white">
                 {cat.icon === "church" && (
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 21V10l-6-5-6 5v11" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v3m-2-1.5h4" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 21v-5a2 2 0 0 1 4 0v5" />
                   </svg>
                 )}
                 {cat.icon === "users" && (
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -196,7 +212,7 @@ const sidebarCategories = [
                   </svg>
                 )}
                 {cat.icon === "help" && (
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
                     <circle cx="12" cy="12" r="4" stroke-linecap="round" stroke-linejoin="round" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.93 4.93 4.24 4.24" />
@@ -205,15 +221,15 @@ const sidebarCategories = [
                     <path stroke-linecap="round" stroke-linejoin="round" d="m9.17 14.83-4.24 4.24" />
                   </svg>
                 )}
-                <span class="font-display text-2xl font-semibold">{cat.title}</span>
+                <span class="font-display text-lg font-semibold">{cat.title}</span>
               </div>
               {cat.links && (
-                <ul class="ml-11 space-y-2 text-lg font-normal text-gray-200">
+                <ul class="ml-8 space-y-1 text-sm font-normal text-gray-200">
                   {cat.links.map((sublink) => (
                     <li>
                       <a 
                         href={sublink.href} 
-                        class="sidebar-link block transition-colors hover:text-amber-400 focus-visible:outline-none"
+                        class="sidebar-link block py-0.5 transition-colors hover:text-amber-400 focus-visible:outline-none"
                       >
                         {sublink.name}
                       </a>
@@ -223,28 +239,27 @@ const sidebarCategories = [
               )}
             </>
           )}
-          <hr class="my-4 border-t border-white/20" />
+          <hr class="my-2 border-t border-white/20" />
         </div>
       ))}
 
-      <!-- Social Media Section -->
-      <div class="pt-2">
+      <div class="pt-1">
         <div class="flex items-center justify-around text-white">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="transition-colors hover:text-amber-400">
-            <svg class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <rect x="2.5" y="2.5" width="19" height="19" rx="6" stroke-linecap="round" stroke-linejoin="round" />
               <circle cx="12" cy="12" r="4.2" stroke-linecap="round" stroke-linejoin="round" />
               <circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" />
             </svg>
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="transition-colors hover:text-amber-400">
-            <svg class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <circle cx="12" cy="12" r="9.5" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M14.5 8h-1.8a2.2 2.2 0 0 0-2.2 2.2V12H9v2.8h1.5V21h3v-6.2h2.2l.4-2.8h-2.6v-1.3c0-.4.3-.7.7-.7h1.3V8z" fill="currentColor" stroke="none" />
             </svg>
           </a>
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="transition-colors hover:text-amber-400">
-            <svg class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <rect x="2" y="4.5" width="20" height="15" rx="5.5" stroke-linecap="round" stroke-linejoin="round" />
               <polygon points="10,8.5 16,12 10,15.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none" />
             </svg>
@@ -256,7 +271,17 @@ const sidebarCategories = [
 </section>
 
 <script>
-  // Definimos la función que configura los listeners
+  // Fade-in de la imagen hero al cargar
+  (function () {
+    const img = document.getElementById("hero-bg-img") as HTMLImageElement | null;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      img.style.opacity = "1";
+    } else {
+      img.addEventListener("load", () => { img.style.opacity = "1"; }, { once: true });
+    }
+  })();
+
   function setupDrawer() {
     const toggleBtn = document.getElementById("menu-toggle-btn");
     const closeBtn = document.getElementById("menu-close-btn");
@@ -264,36 +289,36 @@ const sidebarCategories = [
     const sidebar = document.getElementById("sidebar-panel");
     const sidebarLinks = document.querySelectorAll(".sidebar-link");
 
-    // Verificación de seguridad para evitar errores si no existen los elementos
     if (!toggleBtn || !closeBtn || !overlay || !sidebar) return;
 
     function openMenu() {
-      sidebar.classList.remove("translate-x-full");
-      overlay.classList.remove("hidden");
-      toggleBtn.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden"; // Previene scroll en el fondo
+      sidebar?.classList.remove("translate-x-full");
+      overlay?.classList.remove("hidden");
+      toggleBtn?.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
     }
 
     function closeMenu() {
-      sidebar.classList.add("translate-x-full");
-      overlay.classList.add("hidden");
-      toggleBtn.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = ""; // Restablece el scroll
+      sidebar?.classList.add("translate-x-full");
+      overlay?.classList.add("hidden");
+      toggleBtn?.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
     }
 
-    // Asignamos los eventos
     toggleBtn.addEventListener("click", openMenu);
     closeBtn.addEventListener("click", closeMenu);
     overlay.addEventListener("click", closeMenu);
-    
-    // Cerramos el menú al hacer clic en cualquier enlace interno
     sidebarLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !sidebar.classList.contains("translate-x-full")) {
+        closeMenu();
+      }
+    });
   }
 
-  // 1. Ejecución inmediata para navegación estándar (sin View Transitions)
+  // Ejecución directa y soporte para View Transitions de Astro
   setupDrawer();
-
-  // 2. Ejecución compatible con View Transitions de Astro (si se usan)
   document.addEventListener("astro:page-load", setupDrawer);
 </script>
 

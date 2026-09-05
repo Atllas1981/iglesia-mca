@@ -2,6 +2,7 @@
 // src/layouts/Layout.astro
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import heroImage from "../assets/hero1.webp";
 
 interface Props {
 	title?: string;
@@ -14,6 +15,7 @@ const {
 	description = "Iglesia MCA Floridablanca - Ministerio Como las Águilas. Vuela alto en la presencia de Dios.",
 	image = "/OgMCA.jpg",
 } = Astro.props;
+
 
 // Construimos la URL correcta considerando el base path de GitHub Pages
 const base = import.meta.env.BASE_URL.endsWith("/")
@@ -48,6 +50,17 @@ const faviconURL = `${base}favicon.svg`;
 		<meta property="twitter:image" content={ogImageURL} />
 
 		<title>{title}</title>
+
+		<!-- Preconnect para reducir latencia de fuentes -->
+		<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+
+		<!-- Preload imagen Hero (LCP crítico) -->
+		<link
+			rel="preload"
+			as="image"
+			href={heroImage.src}
+			fetchpriority="high"
+		/>
 
 		<!-- Tipografía: Fontshare CDN -->
 		<!-- Open Sauce Sans: fuente global de interfaz -->
